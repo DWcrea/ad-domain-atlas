@@ -176,7 +176,7 @@
 | --- | --- | --- | --- |
 | `graph.facebook.com` | Meta | Graph API 统一入口。 | 整域拦截会同时废掉 Facebook 登录与分享；只能按路径拦 /tr 一类广告端点。 |
 
-## 不建议拦截（42 条）
+## 不建议拦截（44 条）
 
 属业务基础能力，整域封禁会造成故障
 
@@ -193,6 +193,7 @@
 | `isnssdk.com` | ByteDance | snssdk.com 的海外对应域，承载 TikTok 的业务接口。 | TikTok 无法加载内容与登录。 |
 | `pstatp.com` | ByteDance | 图片、视频、头像、封面等静态资源的 CDN。 | 字节系 App 与内嵌头条内容的第三方 App 大面积白图、视频无法播放。 |
 | `snssdk.com` | ByteDance | 内容流、账号、支付、直播等业务接口的宿主域，抖音与头条 App 的主干。 | 抖音、今日头条无法刷新内容、无法登录、无法播放视频，基本等于 App 报废。 |
+| `tnc3-bjlgy.snssdk.com` | ByteDance | 字节的 CDN 边缘节点。 | 拦掉单个节点基本无效（CDN 会自动切到其他节点），但可能让部分图片或接口请求变慢、失败。 |
 | `hicloud.com` | 国产终端厂商 | 华为云服务、HMS Core 能力、云空间与推送的基础设施域。 | 华为手机 HMS 服务异常，推送、云空间、应用市场可能集体失效。 |
 | `oppomobile.com` | 国产终端厂商 | ColorOS 系统服务、OPPO 推送（PUSH）与账号体系的宿主域。 | OPPO 手机收不到系统推送，账号登录异常。 |
 | `vivo.com.cn` | 国产终端厂商 | Funtouch OS / OriginOS 系统服务、vivo 推送与账号体系。 | vivo 手机推送与账号登录异常。 |
@@ -217,6 +218,7 @@
 | `googleapis.com` | Google | 承载 Firebase、地图、登录、云服务的统一 API 网关，大量 App 的基础能力都在这个域下。 | 整域封禁会导致 Google 登录、地图、Firebase 推送、Play 服务集体失效，App 可能直接白屏或闪退。 |
 | `gstatic.com` | Google | 提供字体、JS 库、公共静态资源。 | 页面字体回退、部分站点 JS 加载失败、布局错乱。 |
 | `jd.com` | 京东 | 商品、订单、支付、账号登录的宿主域。 | 京东打不开、下不了单、付不了款。 |
+| `mars.jd.com` | 京东 | 京东内部以行星/神话命名的服务之一（同族还有 uranus、mercury、hermes、cactus）。 | 用途未公开，无法确认与广告有关；拦掉可能让京东某个页面模块拉不到数据。 |
 | `gifshow.com` | Kuaishou | 快手（原快手 GIF 秀）的视频与封面 CDN，仍被大量客户端引用。 | 快手视频封面与播放地址加载失败。 |
 | `kuaishou.com` | Kuaishou | 快手 App 与网页版的账号、内容、直播接口宿主域。 | 快手无法登录与刷新内容。 |
 | `facebook.com` | Meta | 账号登录、OAuth 授权、分享、Messenger 跳转的宿主域。 | 所有「用 Facebook 登录」的 App 与网站失效，分享按钮报错，OAuth 回调失败。 |

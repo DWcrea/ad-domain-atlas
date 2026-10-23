@@ -1,6 +1,6 @@
 ! Title: ad-domain-atlas · AdGuard / ABP 拦截规则
 ! Entries: 143
-! Generated: 2026-10-23 14:08 UTC
+! Generated: 2026-10-23 14:40 UTC
 ! Source: https://github.com/DWcrea/ad-domain-atlas
 ! 说明：由 data/ 下的 YAML 自动生成，请勿手工修改。
 ! 包含判定：block, block-cost · 最低置信度：low

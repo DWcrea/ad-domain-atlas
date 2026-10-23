@@ -5,7 +5,7 @@
 
 - 官网：https://www.bytedance.com
 - 隐私政策：https://www.bytedance.com/zh/privacy
-- 登记域名：17 条
+- 登记域名：18 条
 
 ## `bytedance.com`
 
@@ -386,6 +386,30 @@ TikTok / 海外字节系 App 的穿山甲广告接口。
 ```text
 @@||snssdk.com^
 ```
+
+## `tnc3-bjlgy.snssdk.com`
+
+- **产品 / SDK**：字节 CDN 边缘节点（tnc 集群）
+- **分类**：基础服务（`infra`）
+- **判定**：不建议拦截（`keep`）· 粒度：仅该子域（含其下级）
+- **置信度**：较可信
+- **标签**：CDN、边缘节点
+
+**用途**
+
+字节的 CDN 边缘节点。tnc 是 Toutiao CDN 的缩写，bjlgy 是机房代号，同族还有 tnc0~tnc4 等多个编号。CNAME 先到腾讯云 CDN 调度（cdngslb.com）再转七牛（queniukw.com），响应头带 X-TT-LOGID 与 type=dyn，说明它既分发静态资源也承担动态回源。
+
+**拦截后果**
+
+拦掉单个节点基本无效（CDN 会自动切到其他节点），但可能让部分图片或接口请求变慢、失败。
+
+**规则**
+
+```text
+@@||tnc3-bjlgy.snssdk.com^
+```
+
+> 这类节点域名是最不该进规则库的一类：数量多、会轮换、与业务流量共用。anti-AD 收录它多半是观测到有广告素材走这个节点，但按节点封禁性价比很低——封一个还有 tnc0/1/2/4，代价却是白图和接口失败。
 
 ---
 

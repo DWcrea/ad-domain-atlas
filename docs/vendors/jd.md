@@ -5,7 +5,7 @@
 
 - 官网：https://www.jd.com
 - 隐私政策：https://about.jd.com/privacy/
-- 登记域名：4 条
+- 登记域名：5 条
 
 ## `ads-union.jd.com`
 
@@ -94,6 +94,30 @@
 ```text
 @@||jd.com^
 ```
+
+## `mars.jd.com`
+
+- **产品 / SDK**：京东内部服务（代号 Mars）
+- **分类**：基础服务（`infra`）
+- **判定**：不建议拦截（`keep`）· 粒度：仅该子域（含其下级）
+- **置信度**：待验证
+- **标签**：接口域、待验证
+
+**用途**
+
+京东内部以行星/神话命名的服务之一（同族还有 uranus、mercury、hermes、cactus）。根路径 301 跳到京东首页，响应头带 Access-Control-Allow-Origin 全开，Server 为京东自研的 jfe，说明它是给前端 JS 调用的接口域，本身不提供页面。具体业务未公开。
+
+**拦截后果**
+
+用途未公开，无法确认与广告有关；拦掉可能让京东某个页面模块拉不到数据。
+
+**规则**
+
+```text
+@@||mars.jd.com^
+```
+
+> anti-AD 收录了它，但同根域下还有 37 条京东域名（jrad、jzt、ads-union、dsp-x、x/u-x/img-x/ccc-x 等）明显是广告与追踪，mars 混在这堆里容易被一并处理。实测 CNAME 指向 mars.jd.com.gslb.qianxun.com（京东云千寻调度），A 记录 106.39.x / 120.52.x 属京东自有网段。
 
 ---
 

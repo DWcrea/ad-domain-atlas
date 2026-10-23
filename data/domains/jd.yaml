@@ -48,3 +48,16 @@ domains:
     impact: 埋点丢失；部分 A/B 实验依赖它回传，极端情况下新功能不出现。
     confidence: medium
     tags: [埋点, 日志]
+
+  - domain: mars.jd.com
+    product: 京东内部服务（代号 Mars）
+    category: infra
+    owner: 京东
+    purpose: 京东内部以行星/神话命名的服务之一（同族还有 uranus、mercury、hermes、cactus）。根路径 301 跳到京东首页，响应头带 Access-Control-Allow-Origin 全开，Server 为京东自研的 jfe，说明它是给前端 JS 调用的接口域，本身不提供页面。具体业务未公开。
+    verdict: keep
+    scope: host
+    impact: 用途未公开，无法确认与广告有关；拦掉可能让京东某个页面模块拉不到数据。
+    confidence: low
+    tags: [接口域, 待验证]
+    notes: anti-AD 收录了它，但同根域下还有 37 条京东域名（jrad、jzt、ads-union、dsp-x、x/u-x/img-x/ccc-x 等）明显是广告与追踪，mars 混在这堆里容易被一并处理。实测 CNAME 指向 mars.jd.com.gslb.qianxun.com（京东云千寻调度），A 记录 106.39.x / 120.52.x 属京东自有网段。
+

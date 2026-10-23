@@ -3,7 +3,7 @@
 > 规则库告诉你「拦什么」，这个项目告诉你「拦了会怎样」。
 
 <!-- STATS:START -->
-187 条记录 / 19 家厂商 · 可拦 145 · 建议保留 42
+189 条记录 / 19 家厂商 · 可拦 145 · 建议保留 44
 <!-- STATS:END -->
 
 **在线浏览**：https://dwcrea.github.io/ad-domain-atlas/ —— 带导航的网页版，手机也能查。
@@ -131,6 +131,16 @@ python tools/rdap.py --all --sleep 1.5    # 全量查询，注意别把人家 RD
 
 判读技巧：注册时间很新、命名却很像正规产品的域名，多半是短命投放域或马甲域。
 
+### 查一个陌生域名
+
+抓包或规则库里看到一个不认识的域名，先跑一遍再决定要不要拦：
+
+```bash
+python tools/explain.py mars.jd.com --list ./anti-ad.txt
+```
+
+它会打印四段东西：库里有没有（含父域继承判断）、同根域下还有哪些域名被这个规则库收录、CNAME 链与 A 记录（能看出是哪家 CDN）、HTTP 响应头指纹（Server / Via / CORS / 跳转），最后给几条判断提示。
+
 ### 体检别人的规则文件
 
 看到一份来路不明的规则库，先别急着订阅，跑一遍：
@@ -236,6 +246,7 @@ ad-domain-atlas/
 │   ├── export_rules.py       # 规则导出
 │   ├── check_lists.py        # 规则库覆盖比对
 │   ├── review_list.py        # 第三方规则文件体检
+│   ├── explain.py            # 单个陌生域名体检（DNS + HTTP 指纹）
 │   └── rdap.py               # RDAP 注册信息
 └── .github/workflows/ci.yml  # 校验 + 生成一致性检查
 ```

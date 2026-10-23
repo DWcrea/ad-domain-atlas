@@ -7,13 +7,13 @@
 | --- | --- | --- | --- | --- |
 | [Alibaba（阿里巴巴）](vendors/alibaba.md) | CN | 13 | 10 | [www.alibaba.com](https://www.alibaba.com) |
 | [Baidu（百度）](vendors/baidu.md) | CN | 7 | 5 | [www.baidu.com](https://www.baidu.com) |
-| [ByteDance（字节跳动）](vendors/bytedance.md) | CN | 17 | 12 | [www.bytedance.com](https://www.bytedance.com) |
+| [ByteDance（字节跳动）](vendors/bytedance.md) | CN | 18 | 12 | [www.bytedance.com](https://www.bytedance.com) |
 | [Google（谷歌）](vendors/google.md) | US | 14 | 11 | [www.google.com](https://www.google.com) |
 | [Kuaishou（快手）](vendors/kuaishou.md) | CN | 3 | 1 | [www.kuaishou.com](https://www.kuaishou.com) |
 | [Meta（前 Facebook）](vendors/meta.md) | US | 6 | 3 | [www.meta.com](https://www.meta.com) |
 | [Tencent（腾讯）](vendors/tencent.md) | CN | 9 | 7 | [www.tencent.com](https://www.tencent.com) |
 | [产品分析](vendors/product-analytics.md) | — | 7 | 7 | — |
-| [京东（JD）](vendors/jd.md) | CN | 4 | 3 | [www.jd.com](https://www.jd.com) |
+| [京东（JD）](vendors/jd.md) | CN | 5 | 3 | [www.jd.com](https://www.jd.com) |
 | [国产终端厂商](vendors/cn-oem.md) | CN | 8 | 4 | — |
 | [国内广告联盟](vendors/cn-adnet.md) | CN | 4 | 4 | — |
 | [国内第三方 SDK](vendors/cn-sdk.md) | CN | 8 | 3 | — |
