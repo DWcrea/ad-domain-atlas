@@ -2,24 +2,31 @@
   "generated": "2026-10-23",
   "lists": [
     {
+      "name": "anti-AD",
+      "source": "anti-ad-adguard.txt",
+      "entries": 103776
+    },
+    {
       "name": "OISD big",
       "source": "oisd_big.txt",
       "entries": 234497
-    },
-    {
-      "name": "SM-Ad-FuckU-hosts",
-      "source": "SMAdHosts.txt",
-      "entries": 4979
     }
   ],
   "summary": {
-    "total": 146,
-    "exact": 81,
+    "total": 187,
+    "exact": 135,
     "children": 0,
-    "none": 65,
-    "rate": 55.5
+    "none": 52,
+    "rate": 72.2
   },
   "uncovered": [
+    {
+      "domain": "adash.ut.taobao.com",
+      "vendor": "Alibaba",
+      "verdict": "block-cost",
+      "category": "analytics",
+      "summary": "阿里系 UT 埋点的实际上报端点。"
+    },
     {
       "domain": "alicdn.com",
       "vendor": "Alibaba",
@@ -35,25 +42,18 @@
       "summary": "淘宝联盟与直通车的投放管理、素材与点击跳转接口。"
     },
     {
-      "domain": "cnzz.com",
-      "vendor": "Alibaba",
-      "verdict": "block",
-      "category": "analytics",
-      "summary": "面向中小站长的访问统计，采集 PV/UV、来源、地域。"
-    },
-    {
-      "domain": "mmstat.com",
-      "vendor": "Alibaba",
-      "verdict": "block",
-      "category": "analytics",
-      "summary": "阿里系 App 的埋点上报域（User Track），记录页面浏览、点击、停留时长。"
-    },
-    {
       "domain": "tanx.com",
       "vendor": "Alibaba",
       "verdict": "block",
       "category": "ad-exchange",
       "summary": "阿里的 RTB 广告交易市场，向媒体方提供广告位竞价与素材。"
+    },
+    {
+      "domain": "taobao.com",
+      "vendor": "Alibaba",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "商品、订单、支付、账号登录的宿主域。"
     },
     {
       "domain": "baidu.com",
@@ -68,6 +68,13 @@
       "verdict": "keep",
       "category": "infra",
       "summary": "企业官网与部分 SDK 的配置、鉴权入口。"
+    },
+    {
+      "domain": "is.snssdk.com",
+      "vendor": "ByteDance",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "设备注册、服务端地址下发，App 启动阶段的第一跳。"
     },
     {
       "domain": "isnssdk.com",
@@ -91,25 +98,18 @@
       "summary": "图片、视频、头像、封面等静态资源的 CDN。"
     },
     {
-      "domain": "2mdn.net",
+      "domain": "snssdk.com",
+      "vendor": "ByteDance",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "内容流、账号、支付、直播等业务接口的宿主域，抖音与头条 App 的主干。"
+    },
+    {
+      "domain": "adservice.google.com",
       "vendor": "Google",
       "verdict": "block",
       "category": "ad-serving",
-      "summary": "存放 DoubleClick 广告素材（图片、视频、富媒体创意），由广告投放域引用。"
-    },
-    {
-      "domain": "app-measurement.com",
-      "vendor": "Google",
-      "verdict": "block-cost",
-      "category": "analytics",
-      "summary": "移动 App 的 Firebase 埋点上报端点，负责事件、用户属性、受众同步。"
-    },
-    {
-      "domain": "crashlytics.com",
-      "vendor": "Google",
-      "verdict": "block-cost",
-      "category": "crash",
-      "summary": "崩溃与 ANR 上报，附带设备型号、系统版本、堆栈与最近操作路径。"
+      "summary": "移动 App 内广告 SDK 的请求入口，常见路径 /adsid/integrator.js 与 /pagead/。"
     },
     {
       "domain": "firebaseinstallations.googleapis.com",
@@ -131,20 +131,6 @@
       "verdict": "keep",
       "category": "infra",
       "summary": "承载 Firebase、地图、登录、云服务的统一 API 网关，大量 App 的基础能力都在这个域下。"
-    },
-    {
-      "domain": "googletagmanager.com",
-      "vendor": "Google",
-      "verdict": "block-cost",
-      "category": "tracking",
-      "summary": "标签管理器容器。"
-    },
-    {
-      "domain": "googletagservices.com",
-      "vendor": "Google",
-      "verdict": "block",
-      "category": "ad-serving",
-      "summary": "网页广告位的调度脚本（gpt.js），负责向 Ad Manager 请求广告并渲染到页面。"
     },
     {
       "domain": "gstatic.com",
@@ -210,18 +196,18 @@
       "summary": "腾讯全系产品的图片与静态资源 CDN，头像、表情、封面、新闻配图都在这里。"
     },
     {
+      "domain": "pgdt.gtimg.com",
+      "vendor": "Tencent",
+      "verdict": "block",
+      "category": "ad-serving",
+      "summary": "存放广点通广告的图片与视频素材，由投放域引用。"
+    },
+    {
       "domain": "qq.com",
       "vendor": "Tencent",
       "verdict": "keep",
       "category": "infra",
       "summary": "QQ 登录、微信开放平台回调、腾讯文档、邮箱等业务的宿主域。"
-    },
-    {
-      "domain": "amplitude.com",
-      "vendor": "产品分析",
-      "verdict": "block",
-      "category": "analytics",
-      "summary": "与 Mixpanel 同类的行为分析平台，移动端与网页端都常用。"
     },
     {
       "domain": "heap.io",
@@ -231,32 +217,11 @@
       "summary": "全量自动采集（capture everything），不需要预先埋点。"
     },
     {
-      "domain": "hotjar.com",
-      "vendor": "产品分析",
-      "verdict": "block",
-      "category": "analytics",
-      "summary": "会话录制、热图与问卷，能回放用户在你站点上的每一次点击与滚动。"
-    },
-    {
-      "domain": "mixpanel.com",
-      "vendor": "产品分析",
-      "verdict": "block",
-      "category": "analytics",
-      "summary": "事件级产品分析，记录每一次点击、注册、付费，做漏斗与留存。"
-    },
-    {
-      "domain": "segment.com",
-      "vendor": "产品分析",
-      "verdict": "block-cost",
-      "category": "tracking",
-      "summary": "客户数据平台（CDP）。"
-    },
-    {
-      "domain": "segment.io",
-      "vendor": "产品分析",
-      "verdict": "block-cost",
-      "category": "tracking",
-      "summary": "Segment 的实际数据上报域（api.segment.io），与 segment.com 分工不同。"
+      "domain": "jd.com",
+      "vendor": "京东",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "商品、订单、支付、账号登录的宿主域。"
     },
     {
       "domain": "hicloud.com",
@@ -301,18 +266,88 @@
       "summary": "小米账号登录、云服务、应用商店、系统更新的宿主域。"
     },
     {
-      "domain": "sensorsdata.cn",
-      "vendor": "国内第三方 SDK",
-      "verdict": "block-cost",
-      "category": "analytics",
-      "summary": "埋点上报主域（/sa、/sdk），记录事件、页面、用户属性。"
-    },
-    {
-      "domain": "inmobi.com",
-      "vendor": "国际广告网络与聚合",
+      "domain": "atm.youku.com",
+      "vendor": "国内视频与音乐平台",
       "verdict": "block",
       "category": "ad-serving",
-      "summary": "全球移动广告网络，覆盖印度、东南亚市场较多。"
+      "summary": "优酷的广告投放与计数中枢。"
+    },
+    {
+      "domain": "iqiyi.com",
+      "vendor": "国内视频与音乐平台",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "爱奇艺的内容、播放、会员与账号接口宿主域。"
+    },
+    {
+      "domain": "kugou.com",
+      "vendor": "国内视频与音乐平台",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "酷狗音乐的曲库、播放、账号接口宿主域。"
+    },
+    {
+      "domain": "mgtv.com",
+      "vendor": "国内视频与音乐平台",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "芒果TV 的内容、播放、会员接口宿主域。"
+    },
+    {
+      "domain": "ut.youku.com",
+      "vendor": "国内视频与音乐平台",
+      "verdict": "block-cost",
+      "category": "analytics",
+      "summary": "阿里系统一的 UT 埋点上报域，adashx.ut 与 h-adashx.ut 记录播放、点击、停留时长。"
+    },
+    {
+      "domain": "youku.com",
+      "vendor": "国内视频与音乐平台",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "优酷的内容分发、播放、会员与登录接口宿主域。"
+    },
+    {
+      "domain": "163.com",
+      "vendor": "国内门户与搜索引擎",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "网易新闻、邮箱、云音乐、游戏的账号与内容接口宿主域。"
+    },
+    {
+      "domain": "360.cn",
+      "vendor": "国内门户与搜索引擎",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "360 安全卫士、浏览器、手机助手的账号与更新接口宿主域。"
+    },
+    {
+      "domain": "ad.360.cn",
+      "vendor": "国内门户与搜索引擎",
+      "verdict": "block",
+      "category": "ad-serving",
+      "summary": "360 广告平台的服务端，同族还有 ad.jia / ad.life / ad.iot 等按行业拆分的子域。"
+    },
+    {
+      "domain": "sina.com.cn",
+      "vendor": "国内门户与搜索引擎",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "新浪新闻、微博登录、邮箱等业务的宿主域。"
+    },
+    {
+      "domain": "sogou.com",
+      "vendor": "国内门户与搜索引擎",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "搜狗搜索、输入法、浏览器的宿主域。"
+    },
+    {
+      "domain": "sohu.com",
+      "vendor": "国内门户与搜索引擎",
+      "verdict": "keep",
+      "category": "infra",
+      "summary": "搜狐新闻、视频、邮箱的宿主域。"
     },
     {
       "domain": "unity3d.com",
@@ -322,116 +357,11 @@
       "summary": "Unity 引擎的资源、License 校验、云服务入口。"
     },
     {
-      "domain": "adform.net",
-      "vendor": "国际程序化广告与监测",
-      "verdict": "block",
-      "category": "ad-serving",
-      "summary": "北欧为主的广告服务器、DSP 与 DMP 一体化平台。"
-    },
-    {
-      "domain": "adnxs.com",
-      "vendor": "国际程序化广告与监测",
-      "verdict": "block",
-      "category": "ad-exchange",
-      "summary": "微软旗下的程序化广告交易平台，ib.adnxs.com 是最常见的竞价端点。"
-    },
-    {
       "domain": "magnite.com",
       "vendor": "国际程序化广告与监测",
       "verdict": "block",
       "category": "ad-exchange",
       "summary": "Magnite 现行主域，承担 SSP 竞价与素材分发。"
-    },
-    {
-      "domain": "outbrain.com",
-      "vendor": "国际程序化广告与监测",
-      "verdict": "block",
-      "category": "ad-serving",
-      "summary": "与 Taboola 同类的内容推荐广告网络。"
-    },
-    {
-      "domain": "rubiconproject.com",
-      "vendor": "国际程序化广告与监测",
-      "verdict": "block",
-      "category": "ad-exchange",
-      "summary": "大型 SSP，2020 年与 Telaria 合并后更名 Magnite。"
-    },
-    {
-      "domain": "scorecardresearch.com",
-      "vendor": "国际程序化广告与监测",
-      "verdict": "block",
-      "category": "measurement",
-      "summary": "受众测量与流量统计，用像素记录站点访问人群特征。"
-    },
-    {
-      "domain": "taboola.com",
-      "vendor": "国际程序化广告与监测",
-      "verdict": "block",
-      "category": "ad-serving",
-      "summary": "内容推荐广告网络，网页底部「你可能感兴趣」「推荐阅读」的赞助内容。"
-    },
-    {
-      "domain": "bugsnag.com",
-      "vendor": "崩溃与性能监控",
-      "verdict": "block-cost",
-      "category": "crash",
-      "summary": "异常与稳定性监控，按错误聚合与告警。"
-    },
-    {
-      "domain": "instabug.com",
-      "vendor": "崩溃与性能监控",
-      "verdict": "block-cost",
-      "category": "crash",
-      "summary": "应用内反馈 SDK，收集崩溃、卡顿、网络日志，并把用户反馈与现场数据一起上报。"
-    },
-    {
-      "domain": "newrelic.com",
-      "vendor": "崩溃与性能监控",
-      "verdict": "block-cost",
-      "category": "crash",
-      "summary": "应用性能监控（APM），采集请求耗时、数据库调用、错误率。"
-    },
-    {
-      "domain": "sentry.io",
-      "vendor": "崩溃与性能监控",
-      "verdict": "block-cost",
-      "category": "crash",
-      "summary": "崩溃、异常、性能追踪上报。"
-    },
-    {
-      "domain": "adjust.com",
-      "vendor": "归因与深度链接",
-      "verdict": "block",
-      "category": "attribution",
-      "summary": "与 AppsFlyer 同类的归因平台，欧洲市场占有率较高，同时提供防作弊。"
-    },
-    {
-      "domain": "appsflyer.com",
-      "vendor": "归因与深度链接",
-      "verdict": "block-cost",
-      "category": "attribution",
-      "summary": "移动归因与营销分析的事实标准。"
-    },
-    {
-      "domain": "branch.io",
-      "vendor": "归因与深度链接",
-      "verdict": "block-cost",
-      "category": "attribution",
-      "summary": "深度链接与归因一体。"
-    },
-    {
-      "domain": "kochava.com",
-      "vendor": "归因与深度链接",
-      "verdict": "block",
-      "category": "attribution",
-      "summary": "归因与受众平台，游戏与工具类 App 使用较多。"
-    },
-    {
-      "domain": "singular.net",
-      "vendor": "归因与深度链接",
-      "verdict": "block",
-      "category": "attribution",
-      "summary": "归因与营销 ETL 平台，把多家渠道数据汇总做 ROI 分析。"
     },
     {
       "domain": "tenjin.com",
@@ -448,32 +378,11 @@
       "summary": "推送基础设施与消息编排，服务大量欧美媒体与零售 App。"
     },
     {
-      "domain": "braze.com",
-      "vendor": "营销自动化与推送",
-      "verdict": "block-cost",
-      "category": "push",
-      "summary": "跨渠道营销自动化，统一管理推送、站内信、邮件与短信的触达节奏。"
-    },
-    {
       "domain": "clevertap.com",
       "vendor": "营销自动化与推送",
       "verdict": "block-cost",
       "category": "push",
       "summary": "用户分群与营销自动化，主打推送与应用内消息。"
-    },
-    {
-      "domain": "onesignal.com",
-      "vendor": "营销自动化与推送",
-      "verdict": "block-cost",
-      "category": "push",
-      "summary": "免费的跨平台推送服务，中小开发者常用。"
-    },
-    {
-      "domain": "pushwoosh.com",
-      "vendor": "营销自动化与推送",
-      "verdict": "block-cost",
-      "category": "push",
-      "summary": "推送与营销自动化平台，东欧市场较多。"
     }
   ]
 }

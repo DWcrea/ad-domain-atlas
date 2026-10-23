@@ -84,6 +84,30 @@
   privacy: ""
   note: 覆盖 AdView、多盟、MediaV、国双。中小 App 与免费工具类应用的主要变现渠道，误杀率低。
 
+- id: cn-video
+  name: 国内视频与音乐平台
+  name_cn: ""
+  country: CN
+  website: ""
+  privacy: ""
+  note: 覆盖优酷、爱奇艺、芒果TV、酷狗音乐。广告位与内容接口同域，只能按子域精确拦——整域封禁会让视频直接播不了。
+
+- id: cn-portal
+  name: 国内门户与搜索引擎
+  name_cn: ""
+  country: CN
+  website: ""
+  privacy: ""
+  note: 覆盖新浪、搜狐、网易、360、搜狗。这类站点习惯用 ad1/ad2/ad3 这类编号子域轮换投放，逐个拦不如整段拦。
+
+- id: jd
+  name: 京东
+  name_cn: JD
+  country: CN
+  website: https://www.jd.com
+  privacy: https://about.jd.com/privacy/
+  note: 京东联盟与站内广告的域名与商品接口分离度较高，可按子域拦。
+
 - id: adnet-global
   name: 国际广告网络与聚合
   name_cn: ""

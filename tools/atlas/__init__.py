@@ -50,8 +50,8 @@ VERDICTS: dict[str, tuple[str, str]] = {
 
 #: 拦截粒度
 SCOPES: dict[str, str] = {
-    "apex": "整域通配（含所有子域）",
-    "host": "仅该主机名",
+    "apex": "根域及其所有子域（整域通配）",
+    "host": "仅该子域（含其下级）",
 }
 
 CONFIDENCE: dict[str, str] = {

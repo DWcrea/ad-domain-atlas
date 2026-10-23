@@ -1,5 +1,5 @@
 # hosts 拦截规则
-# Entries: 116
+# Entries: 143
 # 包含判定：block, block-cost · 最低置信度：low
 
 # ===== 国际广告网络与聚合 =====
@@ -41,6 +41,7 @@
 0.0.0.0 teads.tv
 
 # ===== Alibaba =====
+0.0.0.0 adash.ut.taobao.com
 0.0.0.0 alimama.com
 0.0.0.0 atanx.alicdn.com
 0.0.0.0 cnzz.com
@@ -92,10 +93,37 @@
 0.0.0.0 metrics.data.hicloud.com
 0.0.0.0 mistat.xiaomi.com
 
+# ===== 国内门户与搜索引擎 =====
+0.0.0.0 ad.360.cn
+0.0.0.0 ad.sina.com.cn
+0.0.0.0 ad.sohu.com
+0.0.0.0 adgeo.163.com
+0.0.0.0 adsence.sogou.com
+0.0.0.0 analytics.163.com
+0.0.0.0 aty.sohu.com
+0.0.0.0 beacon.sina.com.cn
+0.0.0.0 click.stat.hao.360.cn
+0.0.0.0 counter.sina.com.cn
+0.0.0.0 cpc.sogou.com
+0.0.0.0 crash.163.com
+0.0.0.0 e.sogou.com
+0.0.0.0 fenxi.360.cn
+
 # ===== 国内第三方 SDK =====
 0.0.0.0 growingio.com
 0.0.0.0 sensorsdata.cn
 0.0.0.0 talkingdata.com
+
+# ===== 国内视频与音乐平台 =====
+0.0.0.0 ad.api.3g.youku.com
+0.0.0.0 ad.m.iqiyi.com
+0.0.0.0 ads.service.kugou.com
+0.0.0.0 adsfile.bssdlbig.kugou.com
+0.0.0.0 atm.youku.com
+0.0.0.0 da.mgtv.com
+0.0.0.0 log.stat.kugou.com
+0.0.0.0 mbdlog.iqiyi.com
+0.0.0.0 ut.youku.com
 
 # ===== 营销自动化与推送 =====
 0.0.0.0 airship.com
@@ -118,6 +146,11 @@
 0.0.0.0 googlesyndication.com
 0.0.0.0 googletagmanager.com
 0.0.0.0 googletagservices.com
+
+# ===== 京东 =====
+0.0.0.0 ads-union.jd.com
+0.0.0.0 blackhole.m.jd.com
+0.0.0.0 dsp-x.jd.com
 
 # ===== Kuaishou =====
 0.0.0.0 adkwai.com

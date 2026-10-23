@@ -1,6 +1,6 @@
 ! Title: ad-domain-atlas · 放行清单（误杀保护）
-! Entries: 28
-! Generated: 2026-10-23 13:37 UTC
+! Entries: 42
+! Generated: 2026-10-23 14:08 UTC
 ! Source: https://github.com/DWcrea/ad-domain-atlas
 ! 说明：由 data/ 下的 YAML 自动生成，请勿手工修改。
 ! 建议置于所有拦截规则之前
@@ -12,6 +12,8 @@
 
 ! ===== Alibaba =====
 @@||alicdn.com^
+@@||baichuan-sdk.taobao.com^
+@@||taobao.com^
 
 ! ===== Baidu =====
 @@||baidu.com^
@@ -30,6 +32,14 @@
 @@||vivo.com.cn^
 @@||xiaomi.com^
 
+! ===== 国内门户与搜索引擎 =====
+@@||163.com^
+@@||360.cn^
+@@||fp-upload.dun.163.com^
+@@||sina.com.cn^
+@@||sogou.com^
+@@||sohu.com^
+
 ! ===== 国内第三方 SDK =====
 @@||getui.com^
 @@||igexin.com^
@@ -37,10 +47,20 @@
 @@||jpush.cn^
 @@||mob.com^
 
+! ===== 国内视频与音乐平台 =====
+@@||cloudpush.iqiyi.com^
+@@||iqiyi.com^
+@@||kugou.com^
+@@||mgtv.com^
+@@||youku.com^
+
 ! ===== Google =====
 @@||google.com^
 @@||googleapis.com^
 @@||gstatic.com^
+
+! ===== 京东 =====
+@@||jd.com^
 
 ! ===== Kuaishou =====
 @@||gifshow.com^

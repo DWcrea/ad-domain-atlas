@@ -1,0 +1,162 @@
+# 国内视频与音乐平台（优酷 / 爱奇艺 / 芒果TV / 酷狗）
+#
+# 这批域名的共同点：广告接口和内容接口长在同一个根域下，
+# 而且广告子域命名很规整（atm / ad / da / ads），整段拦比逐个拦省事。
+# 千万别整域封——视频平台整域一封就是「打不开」。
+
+vendor: cn-video
+domains:
+  - domain: youku.com
+    product: 优酷主域
+    category: infra
+    owner: 阿里巴巴（优酷）
+    purpose: 优酷的内容分发、播放、会员与登录接口宿主域。
+    verdict: keep
+    scope: apex
+    impact: 优酷无法播放视频、无法登录，App 与网页基本报废。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: atm.youku.com
+    product: 优酷广告投放系统（ATM）
+    category: ad-serving
+    owner: 阿里巴巴（优酷）
+    purpose: 优酷的广告投放与计数中枢。adp.atm 拉取广告、count.atm 做曝光与点击计数、html.atm 下发广告位配置、bsv.atm 与 ipm.atm 负责投放决策。
+    verdict: block
+    scope: host
+    impact: 前贴片、暂停广告、暂停页推荐全部消失，视频正常播放。
+    confidence: high
+    tags: [视频广告, 前贴片]
+
+  - domain: ad.api.3g.youku.com
+    product: 优酷移动端广告接口
+    category: ad-serving
+    owner: 阿里巴巴（优酷）
+    purpose: 优酷 App 的移动端广告请求接口，负责开屏、信息流与播放器贴片广告。
+    verdict: block
+    scope: host
+    impact: 优酷 App 内广告位空白。
+    confidence: high
+    tags: [视频广告, 移动广告]
+
+  - domain: ut.youku.com
+    product: 优酷用户行为统计（UT）
+    category: analytics
+    owner: 阿里巴巴（优酷）
+    purpose: 阿里系统一的 UT 埋点上报域，adashx.ut 与 h-adashx.ut 记录播放、点击、停留时长。
+    verdict: block-cost
+    scope: host
+    impact: 埋点丢失，播放与推荐不受影响（推荐可能略变差）。
+    confidence: high
+    tags: [埋点, 阿里系]
+
+  - domain: iqiyi.com
+    product: 爱奇艺主域
+    category: infra
+    owner: 百度（爱奇艺）
+    purpose: 爱奇艺的内容、播放、会员与账号接口宿主域。
+    verdict: keep
+    scope: apex
+    impact: 爱奇艺无法播放与登录。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: ad.m.iqiyi.com
+    product: 爱奇艺移动端广告
+    category: ad-serving
+    owner: 百度（爱奇艺）
+    purpose: 爱奇艺 App 的移动广告请求入口，覆盖开屏、贴片与信息流。
+    verdict: block
+    scope: host
+    impact: App 内广告位空白，视频正常播放。
+    confidence: high
+    tags: [视频广告, 移动广告]
+
+  - domain: mbdlog.iqiyi.com
+    product: 爱奇艺埋点日志
+    category: analytics
+    owner: 百度（爱奇艺）
+    purpose: 爱奇艺的客户端行为日志上报（MBD 埋点体系），记录播放行为与页面路径。
+    verdict: block-cost
+    scope: host
+    impact: 埋点丢失，功能不受影响。
+    confidence: medium
+    tags: [埋点, 日志]
+
+  - domain: cloudpush.iqiyi.com
+    product: 爱奇艺推送通道
+    category: push
+    owner: 百度（爱奇艺）
+    purpose: 爱奇艺的消息推送服务，负责更新提醒、会员到期、互动通知。
+    verdict: keep
+    scope: host
+    impact: 爱奇艺收不到任何推送通知。
+    confidence: medium
+    tags: [推送, 功能耦合]
+    notes: 这条特意列出来当反例——anti-AD 等规则库里有它，但它不是广告，是推送通道。
+
+  - domain: mgtv.com
+    product: 芒果TV 主域
+    category: infra
+    owner: 芒果超媒
+    purpose: 芒果TV 的内容、播放、会员接口宿主域。
+    verdict: keep
+    scope: apex
+    impact: 芒果TV 无法播放与登录。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: da.mgtv.com
+    product: 芒果TV 数据统计
+    category: analytics
+    owner: 芒果超媒
+    purpose: 芒果TV 的数据采集中枢。pc.da、mobile.da、video.da、ott.da 等几十个子域分别对应不同端的行为上报。
+    verdict: block-cost
+    scope: host
+    impact: 播放行为统计丢失，视频正常播放。这是「一拦一大片」的典型：一个子域树顶掉几十条规则。
+    confidence: high
+    tags: [埋点, 多端子域]
+
+  - domain: kugou.com
+    product: 酷狗音乐主域
+    category: infra
+    owner: 腾讯音乐（TME）
+    purpose: 酷狗音乐的曲库、播放、账号接口宿主域。
+    verdict: keep
+    scope: apex
+    impact: 酷狗无法播放与登录。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: ads.service.kugou.com
+    product: 酷狗广告服务
+    category: ad-serving
+    owner: 腾讯音乐（TME）
+    purpose: 酷狗音乐的广告请求服务，负责开屏、播放页 banner 与音频贴片。
+    verdict: block
+    scope: host
+    impact: 酷狗内广告位空白，播放不受影响。
+    confidence: high
+    tags: [音频广告]
+
+  - domain: adsfile.bssdlbig.kugou.com
+    product: 酷狗广告素材 CDN
+    category: ad-serving
+    owner: 腾讯音乐（TME）
+    purpose: 存放广告素材的 CDN 节点（bssdlbig 为酷狗自建分发网络）。
+    verdict: block
+    scope: host
+    impact: 广告素材加载失败，广告位空白。
+    confidence: medium
+    tags: [素材CDN]
+
+  - domain: log.stat.kugou.com
+    product: 酷狗统计日志
+    category: analytics
+    owner: 腾讯音乐（TME）
+    purpose: 酷狗的行为与播放统计上报，配合 log.web、logtj 等子域使用。
+    verdict: block-cost
+    scope: host
+    impact: 统计数据丢失，功能正常。
+    confidence: high
+    tags: [埋点, 日志]

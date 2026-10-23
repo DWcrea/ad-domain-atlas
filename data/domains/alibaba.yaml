@@ -105,3 +105,35 @@ domains:
     impact: 广告监测数据缺失；广告位可能因无法验证曝光而减少投放，间接减少广告。
     confidence: high
     tags: [广告监测, 第三方]
+
+  - domain: taobao.com
+    product: 淘宝主域
+    category: infra
+    purpose: 商品、订单、支付、账号登录的宿主域。
+    verdict: keep
+    scope: apex
+    impact: 淘宝打不开、下不了单、付不了款。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: adash.ut.taobao.com
+    product: 阿里 UT 埋点（adash）
+    category: analytics
+    purpose: 阿里系 UT 埋点的实际上报端点。adash、adashx、adashbc 等一批子域按业务线分流，记录浏览、点击、停留。
+    verdict: block-cost
+    scope: host
+    impact: 埋点丢失；淘宝与支付宝功能不受影响，推荐精准度可能下降。
+    confidence: high
+    tags: [埋点, 阿里系]
+
+  - domain: baichuan-sdk.taobao.com
+    product: 百川电商 SDK
+    category: infra
+    purpose: 阿里百川，让第三方 App 直接接入淘宝的商品、交易、购物车能力。它是电商功能 SDK，不是广告 SDK。
+    verdict: keep
+    scope: host
+    impact: 接入百川的 App 会出现商品打不开、加购失败、跳转淘宝失败。
+    confidence: medium
+    tags: [电商SDK, 功能耦合]
+    notes: 名字里没有 ad，但经常被和 adash 一起误封。判断依据：它返回的是商品与交易数据，不是广告素材。
+

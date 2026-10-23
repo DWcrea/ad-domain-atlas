@@ -1,0 +1,50 @@
+# 京东 JD
+#
+# 京东的广告域（联盟、DSP）与商品/交易接口分得比较开，
+# 按子域拦基本不会影响购物流程。
+
+vendor: jd
+domains:
+  - domain: jd.com
+    product: 京东主域
+    category: infra
+    owner: 京东
+    purpose: 商品、订单、支付、账号登录的宿主域。
+    verdict: keep
+    scope: apex
+    impact: 京东打不开、下不了单、付不了款。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: ads-union.jd.com
+    product: 京东联盟广告
+    category: ad-serving
+    owner: 京东
+    purpose: 京东京准通联盟的广告投放与素材下发，站外媒体挂的京东商品推广位走这里。
+    verdict: block
+    scope: host
+    impact: 站外京东推广位空白，站内购物不受影响。
+    confidence: high
+    tags: [电商广告, 联盟]
+
+  - domain: dsp-x.jd.com
+    product: 京东 DSP
+    category: ad-exchange
+    owner: 京东
+    purpose: 京东的程序化广告投放平台（需求方平台），负责站外精准投放与竞价。
+    verdict: block
+    scope: host
+    impact: 京东站外广告消失，购物流程正常。
+    confidence: high
+    tags: [DSP, 程序化]
+
+  - domain: blackhole.m.jd.com
+    product: 京东客户端埋点
+    category: analytics
+    owner: 京东
+    purpose: 京东 App 的行为日志收集端点（内部叫「黑洞」），记录页面路径、点击、曝光。
+    verdict: block-cost
+    scope: host
+    impact: 埋点丢失；部分 A/B 实验依赖它回传，极端情况下新功能不出现。
+    confidence: medium
+    tags: [埋点, 日志]

@@ -1,0 +1,229 @@
+# 国内门户与搜索引擎（新浪 / 搜狐 / 网易 / 360 / 搜狗）
+#
+# 这批站点的广告投放有个特点：用 ad1 / ad2 / ad3 / ad4 这种编号子域轮换，
+# 你封了 ad 它换 ad2，所以要么逐个封全，要么按业务子域整段封。
+# 另外它们普遍把「计数 / 埋点」放在独立子域，这类可以放心拦。
+
+vendor: cn-portal
+domains:
+  - domain: sina.com.cn
+    product: 新浪主域
+    category: infra
+    owner: 新浪
+    purpose: 新浪新闻、微博登录、邮箱等业务的宿主域。
+    verdict: keep
+    scope: apex
+    impact: 新浪新闻打不开，微博网页版登录失败。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: ad.sina.com.cn
+    product: 新浪广告投放
+    category: ad-serving
+    owner: 新浪
+    purpose: 新浪门户的广告位投放。同族还有 ad2 / ad3 / ad4 / adbox / adm 等编号子域，本质是同一套投放系统的分流。
+    verdict: block
+    scope: host
+    impact: 新浪页面广告位空白，正文不受影响。
+    confidence: high
+    tags: [展示广告, 编号轮换]
+    notes: 只拦 ad. 会漏掉 ad2~ad4。要么把这几个都加上，要么用 `||ad*.sina.com.cn^` 一次覆盖。
+
+  - domain: beacon.sina.com.cn
+    product: 新浪埋点
+    category: tracking
+    owner: 新浪
+    purpose: 页面行为与曝光埋点的上报端点。
+    verdict: block
+    scope: host
+    impact: 埋点丢失，用户无感。
+    confidence: high
+    tags: [埋点]
+
+  - domain: counter.sina.com.cn
+    product: 新浪计数
+    category: measurement
+    owner: 新浪
+    purpose: 广告与页面的曝光计数服务，广告主用它核对投放量。
+    verdict: block
+    scope: host
+    impact: 计数丢失，广告位可能因无法验证曝光而减少投放。
+    confidence: medium
+    tags: [计数, 广告测量]
+
+  - domain: sohu.com
+    product: 搜狐主域
+    category: infra
+    owner: 搜狐
+    purpose: 搜狐新闻、视频、邮箱的宿主域。
+    verdict: keep
+    scope: apex
+    impact: 搜狐各业务打不开。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: ad.sohu.com
+    product: 搜狐广告投放
+    category: ad-serving
+    owner: 搜狐
+    purpose: 搜狐门户的广告投放入口，同族还有 ads / adnet 两个子域。
+    verdict: block
+    scope: host
+    impact: 广告位空白，正文不受影响。
+    confidence: high
+    tags: [展示广告]
+
+  - domain: aty.sohu.com
+    product: 搜狐广告点击统计
+    category: measurement
+    owner: 搜狐
+    purpose: 广告点击与到达率的统计端点，hd.sohu.com 下有对应的 aty.hd 子域。
+    verdict: block
+    scope: host
+    impact: 广告点击无法计数，广告位大概率不再渲染。
+    confidence: medium
+    tags: [点击统计]
+
+  - domain: 163.com
+    product: 网易主域
+    category: infra
+    owner: 网易
+    purpose: 网易新闻、邮箱、云音乐、游戏的账号与内容接口宿主域。
+    verdict: keep
+    scope: apex
+    impact: 网易全系产品无法登录，邮箱打不开。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: adgeo.163.com
+    product: 网易广告地域定向
+    category: ad-serving
+    owner: 网易
+    purpose: 按 IP 与地域做广告定向投放的服务。
+    verdict: block
+    scope: host
+    impact: 定向广告失效，广告量下降。
+    confidence: medium
+    tags: [广告定向, 地域]
+
+  - domain: analytics.163.com
+    product: 网易分析
+    category: analytics
+    owner: 网易
+    purpose: 网易系产品的行为统计上报。
+    verdict: block
+    scope: host
+    impact: 统计数据丢失，功能正常。
+    confidence: medium
+    tags: [埋点]
+
+  - domain: crash.163.com
+    product: 网易崩溃上报
+    category: crash
+    owner: 网易
+    purpose: 网易系 App 的崩溃与异常上报（同族还有 crashlytics.163.com）。
+    verdict: block-cost
+    scope: host
+    impact: 开发者收不到崩溃数据，用户无感。
+    confidence: medium
+    tags: [崩溃上报]
+
+  - domain: fp-upload.dun.163.com
+    product: 网易易盾风控
+    category: tracking
+    owner: 网易
+    purpose: 易盾的设备指纹与风控数据上传。它采集设备信息，但用途是防刷单、防撞库，不是广告。
+    verdict: keep
+    scope: host
+    impact: 部分 App 的验证码、登录风控可能降级，极端情况下验证过不去。
+    confidence: medium
+    tags: [风控, 功能耦合]
+    notes: 这条值得单独说：anti-AD 和晴雅规则都封了它，但它是风控链路，拦了可能影响登录。属于「看起来像追踪、其实是功能」的典型。
+
+  - domain: 360.cn
+    product: 360 主域
+    category: infra
+    owner: 三六零
+    purpose: 360 安全卫士、浏览器、手机助手的账号与更新接口宿主域。
+    verdict: keep
+    scope: apex
+    impact: 360 系软件无法登录、无法更新。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: ad.360.cn
+    product: 360 广告投放
+    category: ad-serving
+    owner: 三六零
+    purpose: 360 广告平台的服务端，同族还有 ad.jia / ad.life / ad.iot 等按行业拆分的子域。
+    verdict: block
+    scope: host
+    impact: 360 系产品内广告位空白，功能不受影响。
+    confidence: high
+    tags: [展示广告, 行业子域]
+
+  - domain: fenxi.360.cn
+    product: 360 分析
+    category: analytics
+    owner: 三六零
+    purpose: 360 的行为分析上报（fenxi 即「分析」的拼音）。
+    verdict: block-cost
+    scope: host
+    impact: 统计数据丢失，功能正常。
+    confidence: medium
+    tags: [埋点]
+
+  - domain: click.stat.hao.360.cn
+    product: 360 导航点击统计
+    category: measurement
+    owner: 三六零
+    purpose: 360 导航站（hao.360.cn）的点击与来源统计。
+    verdict: block
+    scope: host
+    impact: 导航站统计丢失，导航本身可用。
+    confidence: medium
+    tags: [点击统计]
+
+  - domain: sogou.com
+    product: 搜狗主域
+    category: infra
+    owner: 腾讯（搜狗）
+    purpose: 搜狗搜索、输入法、浏览器的宿主域。
+    verdict: keep
+    scope: apex
+    impact: 搜狗搜索与输入法云同步失效。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: cpc.sogou.com
+    product: 搜狗竞价广告
+    category: ad-serving
+    owner: 腾讯（搜狗）
+    purpose: 搜狗的竞价推广（CPC）投放接口，搜索结果里的推广位由它下发。
+    verdict: block
+    scope: host
+    impact: 搜索结果的推广位消失，自然结果不受影响。
+    confidence: high
+    tags: [搜索广告, CPC]
+
+  - domain: e.sogou.com
+    product: 搜狗点击统计
+    category: measurement
+    owner: 腾讯（搜狗）
+    purpose: 广告点击跳转与计费统计端点。
+    verdict: block
+    scope: host
+    impact: 推广位点击无法计费，广告位大概率不再展示。
+    confidence: high
+    tags: [点击统计]
+
+  - domain: adsence.sogou.com
+    product: 搜狗联盟
+    category: ad-serving
+    owner: 腾讯（搜狗）
+    purpose: 搜狗联盟（站外广告位）的投放与素材下发。
+    verdict: block
+    scope: host
+    impact: 接入搜狗联盟的站点广告位空白。
+    confidence: medium
+    tags: [广告联盟]

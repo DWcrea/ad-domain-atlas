@@ -1,6 +1,6 @@
 ! Title: ad-domain-atlas · AdGuard / ABP 拦截规则
-! Entries: 116
-! Generated: 2026-10-23 13:37 UTC
+! Entries: 143
+! Generated: 2026-10-23 14:08 UTC
 ! Source: https://github.com/DWcrea/ad-domain-atlas
 ! 说明：由 data/ 下的 YAML 自动生成，请勿手工修改。
 ! 包含判定：block, block-cost · 最低置信度：low
@@ -44,6 +44,7 @@
 ||teads.tv^
 
 ! ===== Alibaba =====
+||adash.ut.taobao.com^
 ||alimama.com^
 ||atanx.alicdn.com^
 ||cnzz.com^
@@ -95,10 +96,37 @@
 ||metrics.data.hicloud.com^
 ||mistat.xiaomi.com^
 
+! ===== 国内门户与搜索引擎 =====
+||ad.360.cn^
+||ad.sina.com.cn^
+||ad.sohu.com^
+||adgeo.163.com^
+||adsence.sogou.com^
+||analytics.163.com^
+||aty.sohu.com^
+||beacon.sina.com.cn^
+||click.stat.hao.360.cn^
+||counter.sina.com.cn^
+||cpc.sogou.com^
+||crash.163.com^
+||e.sogou.com^
+||fenxi.360.cn^
+
 ! ===== 国内第三方 SDK =====
 ||growingio.com^
 ||sensorsdata.cn^
 ||talkingdata.com^
+
+! ===== 国内视频与音乐平台 =====
+||ad.api.3g.youku.com^
+||ad.m.iqiyi.com^
+||ads.service.kugou.com^
+||adsfile.bssdlbig.kugou.com^
+||atm.youku.com^
+||da.mgtv.com^
+||log.stat.kugou.com^
+||mbdlog.iqiyi.com^
+||ut.youku.com^
 
 ! ===== 营销自动化与推送 =====
 ||airship.com^
@@ -121,6 +149,11 @@
 ||googlesyndication.com^
 ||googletagmanager.com^
 ||googletagservices.com^
+
+! ===== 京东 =====
+||ads-union.jd.com^
+||blackhole.m.jd.com^
+||dsp-x.jd.com^
 
 ! ===== Kuaishou =====
 ||adkwai.com^
