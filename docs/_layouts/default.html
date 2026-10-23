@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="{{ '/' | relative_url }}">
+        <span class="brand-mark">◎</span>
+        <span>{{ site.title }}</span>
+      </a>
+      <nav class="site-nav">
+        <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} class="active"{% endif %}>总表</a>
+        <a href="{{ '/categories.html' | relative_url }}"{% if page.url contains 'categories' %} class="active"{% endif %}>分类</a>
+        <a href="{{ '/verdicts.html' | relative_url }}"{% if page.url contains 'verdicts' %} class="active"{% endif %}>判定</a>
+        <a href="{{ '/keep.html' | relative_url }}"{% if page.url contains 'keep' %} class="active"{% endif %}>误杀名单</a>
+        <a href="{{ '/vendors.html' | relative_url }}"{% if page.url contains 'vendors' %} class="active"{% endif %}>厂商</a>
+        <a href="{{ '/coverage.html' | relative_url }}"{% if page.url contains 'coverage' %} class="active"{% endif %}>覆盖率</a>
+        <a class="gh" href="https://github.com/DWcrea/ad-domain-atlas" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap content">
+    {{ content }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>
+        数据来自 <a href="https://github.com/DWcrea/ad-domain-atlas" target="_blank" rel="noopener">ad-domain-atlas</a>，
+        由 <code>tools/build_docs.py</code> 自动生成。
+      </p>
+      <p class="muted">
+        本页只记录域名在技术上的用途与拦截影响，不构成对任何厂商的指控。
+        拦截规则请自行评估风险。
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

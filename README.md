@@ -6,6 +6,8 @@
 146 个域名 / 16 家厂商 · 可拦 118 · 建议保留 28
 <!-- STATS:END -->
 
+**在线浏览**：https://dwcrea.github.io/ad-domain-atlas/ —— 带导航的网页版，手机也能查。
+
 ---
 
 ## 这是什么

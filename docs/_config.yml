@@ -1,0 +1,34 @@
+title: 广告域名图谱
+description: 每个广告域名是做什么的、该不该拦、拦了会怎样
+lang: zh-CN
+
+# 项目页地址是 https://<user>.github.io/<repo>/，baseurl 必须是 /<repo>
+baseurl: "/ad-domain-atlas"
+url: "https://dwcrea.github.io"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  hard_wrap: false
+  syntax_highlighter: none
+
+# 生成物没有 YAML front matter，需要这个插件才会被当作页面渲染
+plugins:
+  - jekyll-optional-front-matter
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: false
+
+# 给所有页面套上统一布局
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+exclude:
+  - "*.py"
+  - "requirements.txt"
