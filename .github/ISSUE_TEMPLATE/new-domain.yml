@@ -1,0 +1,80 @@
+name: 补充或修正域名
+description: 报告某个广告域名的用途、拦截后果，或指出已有判定的错误
+title: "[域名] "
+labels: ["data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢补充。请尽量写清「你怎么知道的」——依据比结论更重要。
+        只想要规则、不打算贡献数据的，直接用 `tools/export_rules.py` 导出即可，不用开 issue。
+
+  - type: input
+    id: domain
+    attributes:
+      label: 域名
+      description: 主机根域或具体主机名，小写，不带 www.、不带路径
+      placeholder: example-ads.com
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 类型
+      options:
+        - 新增域名（库里还没有）
+        - 修正用途描述
+        - 修正拦截判定（例如 block 应为 keep）
+        - 报告误杀（按本项目规则拦了之后出问题）
+        - 报告漏拦（该拦的没拦住）
+    validations:
+      required: true
+
+  - type: textarea
+    id: purpose
+    attributes:
+      label: 这个域名在做什么
+      description: 收到什么请求、返回什么、由哪个 SDK 或 App 调用。写具体。
+      placeholder: 例如：穿山甲 SDK 的广告请求入口，返回 JSON 广告列表与素材地址，抖音极速版每次切页都会请求。
+    validations:
+      required: true
+
+  - type: dropdown
+    id: verdict
+    attributes:
+      label: 建议的拦截判定
+      options:
+        - block（直接拦截，无副作用）
+        - block-cost（可拦，但会丢数据或功能）
+        - partial（同域混业务，只能精确拦）
+        - keep（不建议拦截）
+        - 不确定
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: 拦截后果
+      description: 拦掉之后具体会发生什么？App 白屏、推送收不到、只是少广告、还是什么都没变？
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 依据
+      description: 抓包截图说明、SDK 文档链接、规则库收录情况、实测环境（App 名称与版本 / 系统版本 / 拦截工具）。
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 确认
+      options:
+        - label: 我已搜索过现有数据，确认不是重复条目
+          required: true
+        - label: 我填写的判定来自实际观察，而不是推测；推测部分已在「依据」中注明
+          required: true

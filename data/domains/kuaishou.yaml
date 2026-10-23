@@ -1,0 +1,33 @@
+# 快手 Kuaishou
+
+vendor: kuaishou
+domains:
+  - domain: adkwai.com
+    product: 快手广告（磁力引擎）
+    category: ad-serving
+    purpose: 快手磁力引擎的广告投放域，承担广告请求、竞价与素材地址下发，同时也作为联盟广告的落地域。
+    verdict: block
+    scope: apex
+    impact: 快手系与接入快手联盟的 App 广告位空白；快手 App 本身可正常使用。
+    confidence: high
+    tags: [磁力引擎, 移动广告]
+
+  - domain: kuaishou.com
+    product: 快手主域
+    category: infra
+    purpose: 快手 App 与网页版的账号、内容、直播接口宿主域。
+    verdict: keep
+    scope: apex
+    impact: 快手无法登录与刷新内容。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: gifshow.com
+    product: 快手内容 CDN / 旧版接口
+    category: infra
+    purpose: 快手（原快手 GIF 秀）的视频与封面 CDN，仍被大量客户端引用。
+    verdict: keep
+    scope: apex
+    impact: 快手视频封面与播放地址加载失败。
+    confidence: medium
+    tags: [CDN, 高危误杀]

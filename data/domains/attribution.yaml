@@ -1,0 +1,72 @@
+# 归因与深度链接（AppsFlyer / Adjust / Branch / Kochava / Singular / Tenjin）
+#
+# 用户完全无感知，但它是「广告到底有没有带来安装」的记账系统。
+# 拦掉不影响使用，代价是渠道归因失真；少数 App 用归因结果发奖励/邀请码。
+
+vendor: attribution
+domains:
+  - domain: appsflyer.com
+    product: AppsFlyer
+    category: attribution
+    owner: AppsFlyer
+    purpose: 移动归因与营销分析的事实标准。App 首次启动时上报安装事件，与广告点击做匹配，判断这次安装来自哪个渠道。
+    verdict: block-cost
+    scope: apex
+    impact: 渠道归因失效，广告主无法判断投放效果；少数 App 的「邀请奖励」「新手任务」依赖归因结果，可能领不到。
+    confidence: high
+    tags: [归因, 安装追踪]
+
+  - domain: adjust.com
+    product: Adjust
+    category: attribution
+    owner: Adjust
+    purpose: 与 AppsFlyer 同类的归因平台，欧洲市场占有率较高，同时提供防作弊。
+    verdict: block
+    scope: apex
+    impact: 归因失效，用户无感。
+    confidence: high
+    tags: [归因, 防作弊]
+
+  - domain: branch.io
+    product: Branch
+    category: attribution
+    owner: Branch
+    purpose: 深度链接与归因一体。分享出去的链接被点开后，能带着参数唤起 App 并跳到指定页面。
+    verdict: block-cost
+    scope: apex
+    impact: 分享链接可能无法正确唤起 App 或跳错页；邀请码、拼团、活动落地页等依赖深链的功能会失效。
+    confidence: high
+    tags: [深度链接, 归因, 功能耦合]
+
+  - domain: kochava.com
+    product: Kochava
+    category: attribution
+    owner: Kochava
+    purpose: 归因与受众平台，游戏与工具类 App 使用较多。
+    verdict: block
+    scope: apex
+    impact: 归因失效，用户无感。
+    confidence: high
+    tags: [归因]
+
+  - domain: singular.net
+    product: Singular
+    category: attribution
+    owner: Singular
+    purpose: 归因与营销 ETL 平台，把多家渠道数据汇总做 ROI 分析。
+    verdict: block
+    scope: apex
+    impact: 归因失效，用户无感。
+    confidence: medium
+    tags: [归因, 营销分析]
+
+  - domain: tenjin.com
+    product: Tenjin
+    category: attribution
+    owner: Tenjin
+    purpose: 面向独立游戏开发者的轻量归因与收入分析。
+    verdict: block
+    scope: apex
+    impact: 归因失效，用户无感。
+    confidence: medium
+    tags: [归因, 游戏]

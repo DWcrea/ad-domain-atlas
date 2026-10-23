@@ -1,0 +1,50 @@
+# 崩溃与性能监控（Sentry / Bugsnag / Instabug / New Relic）
+#
+# 拦截后开发者收不到崩溃数据，终端用户完全无感。
+# 唯一需要留意的场景：App 把热更新、功能开关也挂在这类域名上。
+
+vendor: observability
+domains:
+  - domain: sentry.io
+    product: Sentry
+    category: crash
+    owner: Sentry
+    purpose: 崩溃、异常、性能追踪上报。开源可自建，SaaS 版走 sentry.io。
+    verdict: block-cost
+    scope: apex
+    impact: 崩溃数据丢失；若 App 用 Sentry 做版本灰度或功能开关，可能影响新功能下发。
+    confidence: high
+    tags: [崩溃上报, APM]
+
+  - domain: bugsnag.com
+    product: Bugsnag（SmartBear）
+    category: crash
+    owner: SmartBear
+    purpose: 异常与稳定性监控，按错误聚合与告警。
+    verdict: block-cost
+    scope: apex
+    impact: 崩溃数据丢失，用户无感。
+    confidence: high
+    tags: [崩溃上报]
+
+  - domain: instabug.com
+    product: Instabug
+    category: crash
+    owner: Instabug
+    purpose: 应用内反馈 SDK，收集崩溃、卡顿、网络日志，并把用户反馈与现场数据一起上报。
+    verdict: block-cost
+    scope: apex
+    impact: 崩溃数据丢失；App 内的「摇一摇反馈」「意见反馈」入口可能打不开。
+    confidence: high
+    tags: [崩溃上报, 用户反馈]
+
+  - domain: newrelic.com
+    product: New Relic
+    category: crash
+    owner: New Relic
+    purpose: 应用性能监控（APM），采集请求耗时、数据库调用、错误率。
+    verdict: block-cost
+    scope: apex
+    impact: 性能数据丢失；用户无感。
+    confidence: high
+    tags: [APM]

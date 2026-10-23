@@ -1,0 +1,184 @@
+# 国际广告网络与聚合（AppLovin / Unity / Mintegral / InMobi / Digital Turbine …）
+#
+# 海外 App 变现与买量的主力。多数可整域拦，且拦截后广告位直接消失、不留占位。
+# 每条用 owner 标注实际厂商。
+
+vendor: adnet-global
+domains:
+  - domain: applovin.com
+    product: AppLovin MAX / AXON
+    category: mediation
+    owner: AppLovin
+    purpose: 广告聚合平台 MAX 与自有广告网络 AXON 的服务端，负责广告请求、竞价、瀑布流调度。
+    verdict: block
+    scope: apex
+    impact: App 内 AppLovin 系广告全部消失；App 功能不受影响。
+    confidence: high
+    tags: [聚合, 移动广告, 海外]
+
+  - domain: applvn.com
+    product: AppLovin 短域
+    category: ad-serving
+    owner: AppLovin
+    purpose: AppLovin 的短域名，承担事件上报与素材地址分流，常被漏拦。
+    verdict: block
+    scope: apex
+    impact: 广告无法计数与加载，等同于拦掉 AppLovin。
+    confidence: high
+    tags: [短域, 备用域名]
+
+  - domain: unity3d.com
+    product: Unity 引擎 / 服务
+    category: infra
+    owner: Unity
+    purpose: Unity 引擎的资源、License 校验、云服务入口。
+    verdict: keep
+    scope: apex
+    impact: Unity 打包的游戏可能无法校验授权或加载资源，出现启动失败。
+    confidence: medium
+    tags: [基础设施, 高危误杀]
+
+  - domain: unityads.unity3d.com
+    product: Unity Ads
+    category: ad-serving
+    owner: Unity
+    purpose: Unity Ads 的广告请求与展示接口，大量休闲游戏的主要变现方式。
+    verdict: block
+    scope: host
+    impact: 游戏内激励视频与插屏广告无法加载；游戏本身可正常玩。
+    confidence: high
+    tags: [激励视频, 游戏广告]
+
+  - domain: ironsrc.com
+    product: ironSource（Unity LevelPlay）
+    category: mediation
+    owner: Unity（ironSource）
+    purpose: ironSource 广告聚合与自有网络的统一入口，2022 年被 Unity 收购后与 LevelPlay 合并。
+    verdict: block
+    scope: apex
+    impact: 聚合链路断开，接入 LevelPlay 的游戏广告位空白。
+    confidence: high
+    tags: [聚合, 游戏广告]
+
+  - domain: supersonicads.com
+    product: ironSource 旧域
+    category: ad-serving
+    owner: Unity（ironSource）
+    purpose: ironSource 早期域名，老版本 SDK 仍会请求。
+    verdict: block
+    scope: apex
+    impact: 无业务副作用。
+    confidence: medium
+    tags: [历史域名]
+
+  - domain: mintegral.com
+    product: Mintegral（汇量科技）
+    category: ad-serving
+    owner: 汇量科技 Mobvista
+    purpose: 全球移动广告平台，以激励视频与试玩广告见长，国内出海 App 使用极多。
+    verdict: block
+    scope: apex
+    impact: 广告位空白，功能正常。
+    confidence: high
+    tags: [激励视频, 出海]
+
+  - domain: mintegral.net
+    product: Mintegral 备用域
+    category: ad-serving
+    owner: 汇量科技 Mobvista
+    purpose: 与 mintegral.com 等价的素材与请求域，用于分流与容灾。
+    verdict: block
+    scope: apex
+    impact: 只拦 .com 会漏掉一部分广告。
+    confidence: high
+    tags: [备用域名]
+
+  - domain: vungle.com
+    product: Vungle（Liftoff）
+    category: ad-serving
+    owner: Liftoff
+    purpose: 视频广告网络，主打激励视频与插屏，2021 年被 Liftoff 收购。
+    verdict: block
+    scope: apex
+    impact: 广告位空白。
+    confidence: high
+    tags: [视频广告]
+
+  - domain: liftoff.io
+    product: Liftoff
+    category: ad-serving
+    owner: Liftoff
+    purpose: 效果广告与再营销平台，服务端接口与素材分发。
+    verdict: block
+    scope: apex
+    impact: 广告位空白。
+    confidence: medium
+    tags: [再营销]
+
+  - domain: inmobi.com
+    product: InMobi
+    category: ad-serving
+    owner: InMobi
+    purpose: 全球移动广告网络，覆盖印度、东南亚市场较多。
+    verdict: block
+    scope: apex
+    impact: 广告位空白。
+    confidence: high
+    tags: [移动广告]
+
+  - domain: adcolony.com
+    product: AdColony（Digital Turbine）
+    category: ad-serving
+    owner: Digital Turbine
+    purpose: 高清视频广告网络，以激励视频为主，2021 年被 Digital Turbine 收购。
+    verdict: block
+    scope: apex
+    impact: 广告位空白。
+    confidence: high
+    tags: [视频广告]
+
+  - domain: fyber.com
+    product: Fyber（Digital Turbine）
+    category: mediation
+    owner: Digital Turbine
+    purpose: 广告聚合与交易平台，提供 Offer Wall 与中介服务。
+    verdict: block
+    scope: apex
+    impact: 聚合链路断开，广告位空白。
+    confidence: high
+    tags: [聚合]
+
+  - domain: chartboost.com
+    product: Chartboost
+    category: ad-serving
+    owner: Chartboost
+    purpose: 游戏内广告网络与交叉推广平台。
+    verdict: block
+    scope: apex
+    impact: 广告位空白。
+    confidence: high
+    tags: [游戏广告]
+
+  - domain: tapjoy.com
+    product: Tapjoy
+    category: ad-serving
+    owner: Tapjoy
+    purpose: 激励视频与积分墙，用户完成任务换取游戏内奖励。
+    verdict: block
+    scope: apex
+    impact: 积分墙打不开，「看广告领奖励」类功能失效。
+    confidence: high
+    tags: [积分墙, 激励视频]
+
+  - domain: mopub.com
+    product: MoPub（已关停）
+    category: mediation
+    owner: Twitter（已关停）
+    purpose: Twitter 旗下的广告聚合平台，2022 年 12 月停止服务，流量迁移至 AppLovin MAX。
+    verdict: block
+    scope: apex
+    impact: 无影响。仍请求该域的只可能是未更新的老旧 SDK。
+    confidence: high
+    status: deprecated
+    tags: [已停用, 历史域名]
+    notes: 保留这条记录的意义在于：见到 mopub.com 的请求，说明该 App 的 SDK 至少四年没更新过，可作为「老旧 SDK」的判据。

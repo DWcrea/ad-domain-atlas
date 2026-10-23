@@ -1,0 +1,226 @@
+# 国际程序化广告与第三方测量
+#
+# 以 Web 端为主，属于纯广告/监测基础设施，误杀风险最低的一组。
+# 用 owner 标注实际厂商。
+
+vendor: adtech-global
+domains:
+  - domain: criteo.com
+    product: Criteo
+    category: ad-serving
+    owner: Criteo
+    purpose: 重定向广告网络。靠 Cookie 追踪用户浏览过的商品，在别的网站再推一次。电商站几乎必装。
+    verdict: block
+    scope: apex
+    impact: 「刚看过的东西到处跟着你」现象消失；商品页与下单不受影响。
+    confidence: high
+    tags: [重定向, 电商]
+
+  - domain: criteo.net
+    product: Criteo 投放与素材域
+    category: ad-serving
+    owner: Criteo
+    purpose: Criteo 的广告投放、竞价与素材分发域，与 .com 分工不同。
+    verdict: block
+    scope: apex
+    impact: 只拦 .com 会漏掉大部分广告请求。
+    confidence: high
+    tags: [重定向, 备用域名]
+
+  - domain: taboola.com
+    product: Taboola
+    category: ad-serving
+    owner: Taboola
+    purpose: 内容推荐广告网络，网页底部「你可能感兴趣」「推荐阅读」的赞助内容。
+    verdict: block
+    scope: apex
+    impact: 推荐位空白，正文不受影响。
+    confidence: high
+    tags: [原生广告, 内容推荐]
+
+  - domain: outbrain.com
+    product: Outbrain
+    category: ad-serving
+    owner: Outbrain
+    purpose: 与 Taboola 同类的内容推荐广告网络。
+    verdict: block
+    scope: apex
+    impact: 推荐位空白。
+    confidence: high
+    tags: [原生广告, 内容推荐]
+
+  - domain: pubmatic.com
+    product: PubMatic
+    category: ad-exchange
+    owner: PubMatic
+    purpose: 卖方平台（SSP），帮媒体把广告位拿到交易所竞价。
+    verdict: block
+    scope: apex
+    impact: 广告位竞价失败，广告空白。
+    confidence: high
+    tags: [SSP, RTB]
+
+  - domain: rubiconproject.com
+    product: Magnite（原 Rubicon Project）
+    category: ad-exchange
+    owner: Magnite
+    purpose: 大型 SSP，2020 年与 Telaria 合并后更名 Magnite。
+    verdict: block
+    scope: apex
+    impact: 广告位竞价失败。
+    confidence: high
+    tags: [SSP, RTB]
+
+  - domain: magnite.com
+    product: Magnite
+    category: ad-exchange
+    owner: Magnite
+    purpose: Magnite 现行主域，承担 SSP 竞价与素材分发。
+    verdict: block
+    scope: apex
+    impact: 广告位竞价失败。
+    confidence: high
+    tags: [SSP]
+
+  - domain: openx.net
+    product: OpenX
+    category: ad-exchange
+    owner: OpenX
+    purpose: 独立广告交易平台，同时提供 SSP 与 Ad Exchange 能力。
+    verdict: block
+    scope: apex
+    impact: 广告位竞价失败。
+    confidence: high
+    tags: [AdExchange]
+
+  - domain: adnxs.com
+    product: Xandr（原 AppNexus）
+    category: ad-exchange
+    owner: Microsoft
+    purpose: 微软旗下的程序化广告交易平台，ib.adnxs.com 是最常见的竞价端点。
+    verdict: block
+    scope: apex
+    impact: 广告位竞价失败。
+    confidence: high
+    tags: [AdExchange, RTB]
+
+  - domain: adsrvr.org
+    product: The Trade Desk
+    category: ad-exchange
+    owner: The Trade Desk
+    purpose: 需求方平台（DSP）的竞价与用户匹配端点，常出现在网页的同步像素里。
+    verdict: block
+    scope: apex
+    impact: 跨站定向失效，广告量下降。
+    confidence: high
+    tags: [DSP, 用户同步]
+
+  - domain: casalemedia.com
+    product: Index Exchange
+    category: ad-exchange
+    owner: Index Exchange
+    purpose: 老牌 SSP，以 header bidding 接入为主。
+    verdict: block
+    scope: apex
+    impact: 广告位竞价失败。
+    confidence: medium
+    tags: [SSP, HeaderBidding]
+
+  - domain: smartadserver.com
+    product: Equativ（原 Smart AdServer）
+    category: ad-serving
+    owner: Equativ
+    purpose: 欧洲为主的广告服务器与 SSP。
+    verdict: block
+    scope: apex
+    impact: 广告位空白。
+    confidence: medium
+    tags: [广告服务器, 欧洲]
+
+  - domain: adform.net
+    product: Adform
+    category: ad-serving
+    owner: Adform
+    purpose: 北欧为主的广告服务器、DSP 与 DMP 一体化平台。
+    verdict: block
+    scope: apex
+    impact: 广告位空白。
+    confidence: high
+    tags: [广告服务器, 欧洲]
+
+  - domain: teads.tv
+    product: Teads
+    category: ad-serving
+    owner: Teads
+    purpose: 外播视频广告（outstream video），把视频广告插进图文正文中间。
+    verdict: block
+    scope: apex
+    impact: 正文中的自动播放视频广告消失，页面更省流量。
+    confidence: high
+    tags: [视频广告, 原生广告]
+
+  - domain: 33across.com
+    product: 33Across
+    category: ad-exchange
+    owner: 33Across
+    purpose: 以身份识别与受众扩展为主的广告技术公司。
+    verdict: block
+    scope: apex
+    impact: 定向失效，广告量下降。
+    confidence: medium
+    tags: [身份识别, 受众]
+
+  - domain: amazon-adsystem.com
+    product: Amazon Advertising
+    category: ad-serving
+    owner: Amazon
+    purpose: 亚马逊广告平台，既投自家站点也做站外程序化投放。
+    verdict: block
+    scope: apex
+    impact: 亚马逊系广告位空白；亚马逊购物不受影响。
+    confidence: high
+    tags: [电商广告, 程序化]
+
+  - domain: moatads.com
+    product: Oracle Moat
+    category: measurement
+    owner: Oracle
+    purpose: 广告可见性与无效流量测量，验证广告是否真的被人看到。
+    verdict: block
+    scope: apex
+    impact: 监测数据缺失，广告主侧统计不准，用户无感。
+    confidence: high
+    tags: [可见性, 测量]
+
+  - domain: scorecardresearch.com
+    product: Comscore
+    category: measurement
+    owner: Comscore
+    purpose: 受众测量与流量统计，用像素记录站点访问人群特征。
+    verdict: block
+    scope: apex
+    impact: 测量数据缺失，用户无感。
+    confidence: high
+    tags: [受众测量]
+
+  - domain: comscore.com
+    product: Comscore 主域
+    category: measurement
+    owner: Comscore
+    purpose: Comscore 的配置与报表域，部分采集脚本也从这里下发。
+    verdict: block
+    scope: apex
+    impact: 测量数据缺失。
+    confidence: medium
+    tags: [受众测量]
+
+  - domain: quantserve.com
+    product: Quantcast
+    category: measurement
+    owner: Quantcast
+    purpose: 受众测量与程序化投放，pixel.quantserve.com 是最常见的采集端点。
+    verdict: block
+    scope: apex
+    impact: 测量与定向失效。
+    confidence: high
+    tags: [受众测量, DSP]

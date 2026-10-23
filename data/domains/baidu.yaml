@@ -1,0 +1,73 @@
+# 百度 Baidu
+
+vendor: baidu
+domains:
+  - domain: pos.baidu.com
+    product: 百度联盟主题推广
+    category: ad-serving
+    purpose: 百度联盟的展示广告位接口，站长嵌入的「百度联盟推广」大多指向这里。
+    verdict: block
+    scope: host
+    impact: 联盟广告位空白；百度搜索与网盘不受影响。
+    confidence: high
+    tags: [百度联盟, 网页广告]
+
+  - domain: cpro.baidu.com
+    product: 百度联盟内容推荐广告
+    category: ad-serving
+    purpose: 站内内容推荐位与信息流广告的投放接口，常以「相关推荐」形式出现在正文底部。
+    verdict: block
+    scope: host
+    impact: 推荐位空白，正文内容不受影响。
+    confidence: high
+    tags: [百度联盟, 信息流]
+
+  - domain: mobads.baidu.com
+    product: 百青藤（百度移动广告）
+    category: ad-serving
+    purpose: 面向移动 App 的百度广告联盟接口，提供开屏、插屏、激励视频。
+    verdict: block
+    scope: host
+    impact: App 内百度广告位空白。
+    confidence: medium
+    tags: [移动广告, 百青藤]
+
+  - domain: hm.baidu.com
+    product: 百度统计
+    category: analytics
+    purpose: 网站访问统计的采集端点（hm.js 与 /hm.gif），记录 PV/UV、来源、事件。
+    verdict: block
+    scope: host
+    impact: 站点统计数据缺失，用户无感。
+    confidence: high
+    tags: [网站统计]
+
+  - domain: tongji.baidu.com
+    product: 百度统计后台
+    category: analytics
+    purpose: 统计报表与配置后台，同时承担部分数据上报。
+    verdict: block
+    scope: host
+    impact: 统计数据缺失；站长无法看报表（对普通用户无影响）。
+    confidence: high
+    tags: [网站统计]
+
+  - domain: baidu.com
+    product: 百度主域
+    category: infra
+    purpose: 搜索、账号、网盘、地图、百家号等业务的宿主域。
+    verdict: keep
+    scope: apex
+    impact: 百度搜索打不开、百度网盘无法登录，大量依赖百度 OAuth 的 App 登录失效。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: baidustatic.com
+    product: 百度静态资源 CDN
+    category: infra
+    purpose: 百度各业务的前端静态资源（JS/CSS/图片）分发。
+    verdict: keep
+    scope: apex
+    impact: 百度系页面样式与交互脚本加载失败，页面错乱。
+    confidence: high
+    tags: [CDN, 高危误杀]

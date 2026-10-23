@@ -1,0 +1,83 @@
+# 产品分析（Mixpanel / Amplitude / Segment / Heap / Hotjar / FullStory）
+#
+# 埋点数据管道。拦掉不影响功能，但会丢统计。
+# Segment 一类 CDP 有时承载业务数据同步，判定要更谨慎。
+
+vendor: product-analytics
+domains:
+  - domain: mixpanel.com
+    product: Mixpanel
+    category: analytics
+    owner: Mixpanel
+    purpose: 事件级产品分析，记录每一次点击、注册、付费，做漏斗与留存。
+    verdict: block
+    scope: apex
+    impact: 埋点数据全丢；不影响功能。
+    confidence: high
+    tags: [产品分析, 埋点]
+
+  - domain: amplitude.com
+    product: Amplitude
+    category: analytics
+    owner: Amplitude
+    purpose: 与 Mixpanel 同类的行为分析平台，移动端与网页端都常用。
+    verdict: block
+    scope: apex
+    impact: 埋点数据全丢；不影响功能。
+    confidence: high
+    tags: [产品分析, 埋点]
+
+  - domain: segment.com
+    product: Segment（Twilio）
+    category: tracking
+    owner: Twilio
+    purpose: 客户数据平台（CDP）。App 只接 Segment 一家，再由它把事件分发给下游几十个分析工具。
+    verdict: block-cost
+    scope: apex
+    impact: 拦掉等于一次性切断所有下游分析。若企业把业务数据同步也走 Segment，可能出现数据不一致。
+    confidence: high
+    tags: [CDP, 数据管道]
+
+  - domain: segment.io
+    product: Segment 采集端点
+    category: tracking
+    owner: Twilio
+    purpose: Segment 的实际数据上报域（api.segment.io），与 segment.com 分工不同。
+    verdict: block-cost
+    scope: apex
+    impact: 同 segment.com；只拦 .com 通常无效。
+    confidence: high
+    tags: [CDP, 备用域名]
+
+  - domain: heap.io
+    product: Heap
+    category: analytics
+    owner: Heap
+    purpose: 全量自动采集（capture everything），不需要预先埋点。
+    verdict: block
+    scope: apex
+    impact: 数据缺失；不影响功能。
+    confidence: high
+    tags: [产品分析, 自动埋点]
+
+  - domain: hotjar.com
+    product: Hotjar
+    category: analytics
+    owner: Hotjar
+    purpose: 会话录制、热图与问卷，能回放用户在你站点上的每一次点击与滚动。
+    verdict: block
+    scope: apex
+    impact: 站点统计与录制功能失效；访客无感，且页面更省资源。
+    confidence: high
+    tags: [会话录制, 热图]
+
+  - domain: fullstory.com
+    product: FullStory
+    category: analytics
+    owner: FullStory
+    purpose: 全量会话回放，把用户在页面上的所有操作录成可检索的「录像」。
+    verdict: block
+    scope: apex
+    impact: 会话录制失效；不影响功能。
+    confidence: high
+    tags: [会话录制]

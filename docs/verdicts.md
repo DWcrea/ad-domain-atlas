@@ -1,0 +1,190 @@
+# 按拦截判定
+
+判定回答的是「这个域名拦了会不会出问题」，不是「它是不是广告」。大量统计、归因域名属于灰色地带，拦掉不报错但会丢数据。
+
+
+| 判定 | 含义 |
+| --- | --- |
+| `拦截` | 直接拦截：无业务副作用，可整域封禁 |
+| `拦截·代价` | 可拦，有代价：拦掉后丢失某项数据或功能，但不影响核心使用 |
+| `部分` | 部分拦截：同域混用业务流量，只能按主机名或路径精确拦截 |
+| `保留` | 不建议拦截：属业务基础能力，整域封禁会造成故障 |
+
+## 直接拦截（86 条）
+
+无业务副作用，可整域封禁
+
+| 域名 | 厂商 | 用途 | 拦截后果 |
+| --- | --- | --- | --- |
+| `adcolony.com` | 国际广告网络与聚合 | 高清视频广告网络，以激励视频为主，2021 年被 Digital Turbine 收购。 | 广告位空白。 |
+| `applovin.com` | 国际广告网络与聚合 | 广告聚合平台 MAX 与自有广告网络 AXON 的服务端，负责广告请求、竞价、瀑布流调度。 | App 内 AppLovin 系广告全部消失；App 功能不受影响。 |
+| `applvn.com` | 国际广告网络与聚合 | AppLovin 的短域名，承担事件上报与素材地址分流，常被漏拦。 | 广告无法计数与加载，等同于拦掉 AppLovin。 |
+| `chartboost.com` | 国际广告网络与聚合 | 游戏内广告网络与交叉推广平台。 | 广告位空白。 |
+| `fyber.com` | 国际广告网络与聚合 | 广告聚合与交易平台，提供 Offer Wall 与中介服务。 | 聚合链路断开，广告位空白。 |
+| `inmobi.com` | 国际广告网络与聚合 | 全球移动广告网络，覆盖印度、东南亚市场较多。 | 广告位空白。 |
+| `ironsrc.com` | 国际广告网络与聚合 | ironSource 广告聚合与自有网络的统一入口，2022 年被 Unity 收购后与 LevelPlay 合并。 | 聚合链路断开，接入 LevelPlay 的游戏广告位空白。 |
+| `liftoff.io` | 国际广告网络与聚合 | 效果广告与再营销平台，服务端接口与素材分发。 | 广告位空白。 |
+| `mintegral.com` | 国际广告网络与聚合 | 全球移动广告平台，以激励视频与试玩广告见长，国内出海 App 使用极多。 | 广告位空白，功能正常。 |
+| `mintegral.net` | 国际广告网络与聚合 | 与 mintegral.com 等价的素材与请求域，用于分流与容灾。 | 只拦 .com 会漏掉一部分广告。 |
+| `mopub.com` | 国际广告网络与聚合 | Twitter 旗下的广告聚合平台，2022 年 12 月停止服务，流量迁移至 AppLovin MAX。 | 无影响。仍请求该域的只可能是未更新的老旧 SDK。 |
+| `supersonicads.com` | 国际广告网络与聚合 | ironSource 早期域名，老版本 SDK 仍会请求。 | 无业务副作用。 |
+| `tapjoy.com` | 国际广告网络与聚合 | 激励视频与积分墙，用户完成任务换取游戏内奖励。 | 积分墙打不开，「看广告领奖励」类功能失效。 |
+| `unityads.unity3d.com` | 国际广告网络与聚合 | Unity Ads 的广告请求与展示接口，大量休闲游戏的主要变现方式。 | 游戏内激励视频与插屏广告无法加载；游戏本身可正常玩。 |
+| `vungle.com` | 国际广告网络与聚合 | 视频广告网络，主打激励视频与插屏，2021 年被 Liftoff 收购。 | 广告位空白。 |
+| `33across.com` | 国际程序化广告与监测 | 以身份识别与受众扩展为主的广告技术公司。 | 定向失效，广告量下降。 |
+| `adform.net` | 国际程序化广告与监测 | 北欧为主的广告服务器、DSP 与 DMP 一体化平台。 | 广告位空白。 |
+| `adnxs.com` | 国际程序化广告与监测 | 微软旗下的程序化广告交易平台，ib.adnxs.com 是最常见的竞价端点。 | 广告位竞价失败。 |
+| `adsrvr.org` | 国际程序化广告与监测 | 需求方平台（DSP）的竞价与用户匹配端点，常出现在网页的同步像素里。 | 跨站定向失效，广告量下降。 |
+| `amazon-adsystem.com` | 国际程序化广告与监测 | 亚马逊广告平台，既投自家站点也做站外程序化投放。 | 亚马逊系广告位空白；亚马逊购物不受影响。 |
+| `casalemedia.com` | 国际程序化广告与监测 | 老牌 SSP，以 header bidding 接入为主。 | 广告位竞价失败。 |
+| `comscore.com` | 国际程序化广告与监测 | Comscore 的配置与报表域，部分采集脚本也从这里下发。 | 测量数据缺失。 |
+| `criteo.com` | 国际程序化广告与监测 | 重定向广告网络。 | 「刚看过的东西到处跟着你」现象消失；商品页与下单不受影响。 |
+| `criteo.net` | 国际程序化广告与监测 | Criteo 的广告投放、竞价与素材分发域，与 .com 分工不同。 | 只拦 .com 会漏掉大部分广告请求。 |
+| `magnite.com` | 国际程序化广告与监测 | Magnite 现行主域，承担 SSP 竞价与素材分发。 | 广告位竞价失败。 |
+| `moatads.com` | 国际程序化广告与监测 | 广告可见性与无效流量测量，验证广告是否真的被人看到。 | 监测数据缺失，广告主侧统计不准，用户无感。 |
+| `openx.net` | 国际程序化广告与监测 | 独立广告交易平台，同时提供 SSP 与 Ad Exchange 能力。 | 广告位竞价失败。 |
+| `outbrain.com` | 国际程序化广告与监测 | 与 Taboola 同类的内容推荐广告网络。 | 推荐位空白。 |
+| `pubmatic.com` | 国际程序化广告与监测 | 卖方平台（SSP），帮媒体把广告位拿到交易所竞价。 | 广告位竞价失败，广告空白。 |
+| `quantserve.com` | 国际程序化广告与监测 | 受众测量与程序化投放，pixel.quantserve.com 是最常见的采集端点。 | 测量与定向失效。 |
+| `rubiconproject.com` | 国际程序化广告与监测 | 大型 SSP，2020 年与 Telaria 合并后更名 Magnite。 | 广告位竞价失败。 |
+| `scorecardresearch.com` | 国际程序化广告与监测 | 受众测量与流量统计，用像素记录站点访问人群特征。 | 测量数据缺失，用户无感。 |
+| `smartadserver.com` | 国际程序化广告与监测 | 欧洲为主的广告服务器与 SSP。 | 广告位空白。 |
+| `taboola.com` | 国际程序化广告与监测 | 内容推荐广告网络，网页底部「你可能感兴趣」「推荐阅读」的赞助内容。 | 推荐位空白，正文不受影响。 |
+| `teads.tv` | 国际程序化广告与监测 | 外播视频广告（outstream video），把视频广告插进图文正文中间。 | 正文中的自动播放视频广告消失，页面更省流量。 |
+| `alimama.com` | Alibaba | 淘宝联盟与直通车的投放管理、素材与点击跳转接口。 | 电商推广位与淘宝客链接失效；正常购物不受影响。 |
+| `atanx.alicdn.com` | Alibaba | 存放 Tanx 广告素材，由投放域引用。 | 广告素材加载失败；阿里系业务图片走 gw.alicdn.com，不受影响。 |
+| `cnzz.com` | Alibaba | 面向中小站长的访问统计，采集 PV/UV、来源、地域。 | 站点统计缺失，用户无感。 |
+| `miaozhen.com` | Alibaba | 第三方广告监测，做曝光验证、可见性测量与到达率统计，广告主用它给媒体结账。 | 广告监测数据缺失；广告位可能因无法验证曝光而减少投放，间接减少广告。 |
+| `mmstat.com` | Alibaba | 阿里系 App 的埋点上报域（User Track），记录页面浏览、点击、停留时长。 | 埋点丢失，淘宝/支付宝功能正常。 |
+| `tanx.com` | Alibaba | 阿里的 RTB 广告交易市场，向媒体方提供广告位竞价与素材。 | 阿里系站外展示广告空白；淘宝、支付宝功能不受影响。 |
+| `adjust.com` | 归因与深度链接 | 与 AppsFlyer 同类的归因平台，欧洲市场占有率较高，同时提供防作弊。 | 归因失效，用户无感。 |
+| `kochava.com` | 归因与深度链接 | 归因与受众平台，游戏与工具类 App 使用较多。 | 归因失效，用户无感。 |
+| `singular.net` | 归因与深度链接 | 归因与营销 ETL 平台，把多家渠道数据汇总做 ROI 分析。 | 归因失效，用户无感。 |
+| `tenjin.com` | 归因与深度链接 | 面向独立游戏开发者的轻量归因与收入分析。 | 归因失效，用户无感。 |
+| `cpro.baidu.com` | Baidu | 站内内容推荐位与信息流广告的投放接口，常以「相关推荐」形式出现在正文底部。 | 推荐位空白，正文内容不受影响。 |
+| `hm.baidu.com` | Baidu | 网站访问统计的采集端点（hm.js 与 /hm.gif），记录 PV/UV、来源、事件。 | 站点统计数据缺失，用户无感。 |
+| `mobads.baidu.com` | Baidu | 面向移动 App 的百度广告联盟接口，提供开屏、插屏、激励视频。 | App 内百度广告位空白。 |
+| `pos.baidu.com` | Baidu | 百度联盟的展示广告位接口，站长嵌入的「百度联盟推广」大多指向这里。 | 联盟广告位空白；百度搜索与网盘不受影响。 |
+| `tongji.baidu.com` | Baidu | 统计报表与配置后台，同时承担部分数据上报。 | 统计数据缺失；站长无法看报表（对普通用户无影响）。 |
+| `csjplatform.com` | ByteDance | 命名与穿山甲缩写一致，被 OISD 等主流规则库收录，用途指向广告平台服务端； | 无业务副作用。 |
+| `pangle.io` | ByteDance | 面向海外开发者的广告变现平台，提供广告请求、报表与素材接口。 | 海外 App 的 Pangle 广告位空白。 |
+| `pangolin-sdk-toutiao-b.com` | ByteDance | 穿山甲主域不可用时的轮换域名，功能与主域完全等价。 | 同上；不拦则会绕过主域封禁继续出广告。 |
+| `pangolin-sdk-toutiao.com` | ByteDance | 国内穿山甲 SDK 的服务端入口，承担广告请求、竞价、配置下发与素材地址返回。 | 集成穿山甲广告的 App 广告位空白，App 本身功能不受影响。 |
+| `pangolin-sdk-toutiao1.com` | ByteDance | 穿山甲按序号轮换的一组域名，-toutiao1 至 -toutiao4 同时存在，SDK 会在失败时依次重试。 | 同上；这是「拦了还有广告」的最常见原因。 |
+| `pangolin-x.com` | ByteDance | 穿山甲体系内的辅助域，用于配置拉取与请求分流，被主流规则库普遍收录。 | 无业务副作用。 |
+| `pangolin.snssdk.com` | ByteDance | 挂在 snssdk.com 主域下的穿山甲广告接口，与抖音业务接口共用根域，必须按主机名拦。 | 仅广告接口被拦，抖音/头条的内容与账号接口不受影响。 |
+| `pangolin16.isnssdk.com` | ByteDance | TikTok / 海外字节系 App 的穿山甲广告接口。 | 海外版 App 广告位空白。 |
+| `adview.cn` | 国内广告联盟 | 移动广告联盟，为中小 App 提供 banner、插屏、开屏广告的请求与素材接口。 | 接入 AdView 的 App 广告位空白，功能正常。 |
+| `domob.cn` | 国内广告联盟 | 移动广告联盟与 DSP，提供广告投放、素材与点击跳转。 | 广告位空白。 |
+| `gridsum.com` | 国内广告联盟 | 网站与广告的第三方数据分析、监测与归因，常见于大型企业站点。 | 监测数据缺失，用户无感。 |
+| `mediav.com` | 国内广告联盟 | 效果广告投放与精准定向平台，电商与游戏行业使用较多。 | 广告位空白。 |
+| `ad.xiaomi.com` | 国产终端厂商 | MIUI 系统广告位（负一屏、天气、文件夹推荐）的广告请求与素材下发。 | 系统内推荐位空白；系统功能不受影响。 |
+| `adsfs.oppomobile.com` | 国产终端厂商 | ColorOS 系统广告与 OPPO 联盟广告的素材分发。 | 系统广告位素材加载失败显示空白；系统功能不受影响。 |
+| `growingio.com` | 国内第三方 SDK | 无埋点采集与热图分析，自动抓取页面元素与点击行为。 | 行为分析数据缺失，功能正常。 |
+| `talkingdata.com` | 国内第三方 SDK | 移动统计与广告归因，同时提供数据交易服务（TalkingData AdTracking）。 | 统计数据缺失；部分 App 靠它做渠道归因，可能影响渠道统计报表。 |
+| `flurry.com` | 营销自动化与推送 | 移动应用分析与广告归因，Yahoo 旗下的老牌移动统计 SDK。 | 统计数据缺失，用户无感。 |
+| `2mdn.net` | Google | 存放 DoubleClick 广告素材（图片、视频、富媒体创意），由广告投放域引用。 | 广告素材加载失败，广告位显示空白或占位图。 |
+| `adservice.google.com` | Google | 移动 App 内广告 SDK 的请求入口，常见路径 /adsid/integrator.js 与 /pagead/。 | App 内 Google 广告请求失败，广告位空白。 |
+| `doubleclick.net` | Google | Google 展示广告的核心投放域。 | 网页与 App 内的 Google 系广告位变为空白，广告链接点不开，属预期行为。 |
+| `google-analytics.com` | Google | GA 的数据采集端点，analytics.js、gtag/js 与 /g/collect 上报都指向这里。 | 站点统计数据缺失，对访客无感知。 |
+| `googleadservices.com` | Google | 广告点击后的跳转与转化归因（pagead/aclk、pagead/conversion）。 | 广告点击无法记账与跳转；正常站内跳转不受影响。 |
+| `googlesyndication.com` | Google | pagead2.googlesyndication.com 下发广告脚本，tpc.googlesyndication.com 存放广告素材，googleads.g.double… | 广告位空白；不影响 Google 账号、搜索、地图等业务。 |
+| `googletagservices.com` | Google | 网页广告位的调度脚本（gpt.js），负责向 Ad Manager 请求广告并渲染到页面。 | 使用 GPT 的网站广告位不渲染；若站点把业务脚本挂在该域会异常（少见）。 |
+| `adkwai.com` | Kuaishou | 快手磁力引擎的广告投放域，承担广告请求、竞价与素材地址下发，同时也作为联盟广告的落地域。 | 快手系与接入快手联盟的 App 广告位空白；快手 App 本身可正常使用。 |
+| `an.facebook.com` | Meta | 面向第三方 App 的横幅、插屏、激励视频广告请求与素材下发。 | App 内 Audience Network 广告位空白，不影响 Facebook 登录。 |
+| `amplitude.com` | 产品分析 | 与 Mixpanel 同类的行为分析平台，移动端与网页端都常用。 | 埋点数据全丢；不影响功能。 |
+| `fullstory.com` | 产品分析 | 全量会话回放，把用户在页面上的所有操作录成可检索的「录像」。 | 会话录制失效；不影响功能。 |
+| `heap.io` | 产品分析 | 全量自动采集（capture everything），不需要预先埋点。 | 数据缺失；不影响功能。 |
+| `hotjar.com` | 产品分析 | 会话录制、热图与问卷，能回放用户在你站点上的每一次点击与滚动。 | 站点统计与录制功能失效；访客无感，且页面更省资源。 |
+| `mixpanel.com` | 产品分析 | 事件级产品分析，记录每一次点击、注册、付费，做漏斗与留存。 | 埋点数据全丢；不影响功能。 |
+| `e.qq.com` | Tencent | 广告曝光、点击、转化的事件上报端点，广告请求成功后紧接着打这里。 | 广告无法计数，广告位大概率直接不渲染（等同拦掉）。 |
+| `gdt.qq.com` | Tencent | 腾讯广告（原广点通）的广告请求与投放接口，微信、QQ、腾讯视频、优量汇的广告位都从这里取量。 | 腾讯系广告位空白；微信聊天、支付、QQ 登录不受影响。 |
+| `pgdt.gtimg.com` | Tencent | 存放广点通广告的图片与视频素材，由投放域引用。 | 广告素材加载失败，广告位显示空白。 |
+| `pingjs.qq.com` | Tencent | 页面性能指标（加载耗时、JS 错误）的采集脚本与上报端点。 | 性能数据缺失，不影响页面功能。 |
+| `ta.qq.com` | Tencent | 网页与 H5 的访问统计、来源分析、转化漏斗采集端点。 | 站点统计数据缺失，用户无感。 |
+
+## 可拦，有代价（31 条）
+
+拦掉后丢失某项数据或功能，但不影响核心使用
+
+| 域名 | 厂商 | 用途 | 拦截后果 |
+| --- | --- | --- | --- |
+| `umeng.co` | Alibaba | 友盟的短域名，用于素材与上报的分流。 | 同 umeng.com。 |
+| `umeng.com` | Alibaba | 国内使用最广的第三方统计 SDK。 | 统计全丢是必然；如果 App 的推送走友盟，通知会一起收不到。 |
+| `umengcloud.com` | Alibaba | U-App 的实际数据上报与配置下发域名，与 umeng.com 互为补充。 | 同 umeng.com；只拦一个通常拦不干净。 |
+| `appsflyer.com` | 归因与深度链接 | 移动归因与营销分析的事实标准。 | 渠道归因失效，广告主无法判断投放效果；少数 App 的「邀请奖励」「新手任务」依赖归因结果，可能领不到。 |
+| `branch.io` | 归因与深度链接 | 深度链接与归因一体。 | 分享链接可能无法正确唤起 App 或跳错页；邀请码、拼团、活动落地页等依赖深链的功能会失效。 |
+| `dm.bytedance.com` | ByteDance | 人群包与用户标签的同步接口，服务于广告定向。 | 广告定向精度下降（对用户是好事），不影响业务功能。 |
+| `log.snssdk.com` | ByteDance | App 运行日志与行为埋点的批量上报通道。 | 埋点与诊断日志丢失，开发者排查线上问题会缺数据；用户侧无感。 |
+| `mon.snssdk.com` | ByteDance | 性能、卡顿、网络质量等监控数据的上报端点。 | 监控数据缺失，不影响功能。 |
+| `mssdk.bytedance.com` | ByteDance | 提供设备标识、SDK 配置、灰度开关等通用能力，被抖音、头条、番茄等多款 App 共用。 | 部分 App 的 SDK 初始化降级，可能出现功能缺失或埋点全丢，但不至于崩溃。 |
+| `metrics.data.hicloud.com` | 国产终端厂商 | 华为分析服务（Analytics Kit）与系统遥测的数据上报端点。 | 统计数据缺失；若 App 依赖 HMS 推送 token 注册链路，需观察是否受影响。 |
+| `mistat.xiaomi.com` | 国产终端厂商 | MIUI/HyperOS 与小米系 App 的使用统计、广告归因、设备画像上报。 | 系统遥测数据缺失；部分小米系 App 的广告归因失效，功能正常。 |
+| `sensorsdata.cn` | 国内第三方 SDK | 埋点上报主域（/sa、/sdk），记录事件、页面、用户属性。 | 埋点数据全丢；不影响 App 功能。 |
+| `airship.com` | 营销自动化与推送 | 推送基础设施与消息编排，服务大量欧美媒体与零售 App。 | 推送全部收不到；若 App 用它下发配置，可能有功能异常。 |
+| `appboy.com` | 营销自动化与推送 | Braze 改名前的域名，老版本 SDK 仍在引用。 | 同 braze.com。 |
+| `braze.com` | 营销自动化与推送 | 跨渠道营销自动化，统一管理推送、站内信、邮件与短信的触达节奏。 | 营销推送与站内消息收不到；若验证码走 Braze 模板，可能影响登录。 |
+| `clevertap.com` | 营销自动化与推送 | 用户分群与营销自动化，主打推送与应用内消息。 | 推送与营销消息收不到。 |
+| `onesignal.com` | 营销自动化与推送 | 免费的跨平台推送服务，中小开发者常用。 | 推送通知收不到；App 功能本身不受影响，但用户会漏掉消息提醒。 |
+| `pushwoosh.com` | 营销自动化与推送 | 推送与营销自动化平台，东欧市场较多。 | 推送通知收不到；App 功能本身不受影响，只是少了触达渠道。 |
+| `app-measurement.com` | Google | 移动 App 的 Firebase 埋点上报端点，负责事件、用户属性、受众同步。 | App 内埋点全丢。少数 App 依赖远端配置返回值，极端情况下首次启动会卡在初始化。 |
+| `crashlytics.com` | Google | 崩溃与 ANR 上报，附带设备型号、系统版本、堆栈与最近操作路径。 | 开发者收不到崩溃数据；终端用户无感知。 |
+| `firebaseinstallations.googleapis.com` | Google | 生成并维护 Firebase Installation ID（FID），Analytics、Remote Config、Cloud Messaging 都依赖它做实例标识。 | 依赖 FID 的推送 token 注册可能失败，导致收不到推送；纯统计类 App 只是丢数据。 |
+| `googletagmanager.com` | Google | 标签管理器容器。 | 会同时屏蔽该容器内的所有第三方脚本。若站点把业务逻辑放进 GTM，可能出现按钮失效、表单不提交。 |
+| `connect.facebook.net` | Meta | 网页端 SDK 宿主。 | Pixel 被彻底阻断，但依赖 FB 登录的站点登录按钮也会一起失效。 |
+| `bugsnag.com` | 崩溃与性能监控 | 异常与稳定性监控，按错误聚合与告警。 | 崩溃数据丢失，用户无感。 |
+| `instabug.com` | 崩溃与性能监控 | 应用内反馈 SDK，收集崩溃、卡顿、网络日志，并把用户反馈与现场数据一起上报。 | 崩溃数据丢失；App 内的「摇一摇反馈」「意见反馈」入口可能打不开。 |
+| `newrelic.com` | 崩溃与性能监控 | 应用性能监控（APM），采集请求耗时、数据库调用、错误率。 | 性能数据丢失；用户无感。 |
+| `sentry.io` | 崩溃与性能监控 | 崩溃、异常、性能追踪上报。 | 崩溃数据丢失；若 App 用 Sentry 做版本灰度或功能开关，可能影响新功能下发。 |
+| `segment.com` | 产品分析 | 客户数据平台（CDP）。 | 拦掉等于一次性切断所有下游分析。若企业把业务数据同步也走 Segment，可能出现数据不一致。 |
+| `segment.io` | 产品分析 | Segment 的实际数据上报域（api.segment.io），与 segment.com 分工不同。 | 同 segment.com；只拦 .com 通常无效。 |
+| `beacon.qq.com` | Tencent | 客户端质量与行为数据上报，覆盖卡顿、崩溃、页面耗时。 | 质量监控数据缺失；部分 App 把业务埋点也放这里，会一起丢。 |
+| `bugly.qq.com` | Tencent | 崩溃、ANR、卡顿上报与热更新下发，国内 App 使用极广。 | 开发者收不到崩溃数据；若 App 用 Bugly 做热修复下发，可能影响版本更新。 |
+
+## 部分拦截（1 条）
+
+同域混用业务流量，只能按主机名或路径精确拦截
+
+| 域名 | 厂商 | 用途 | 拦截后果 |
+| --- | --- | --- | --- |
+| `graph.facebook.com` | Meta | Graph API 统一入口。 | 整域拦截会同时废掉 Facebook 登录与分享；只能按路径拦 /tr 一类广告端点。 |
+
+## 不建议拦截（28 条）
+
+属业务基础能力，整域封禁会造成故障
+
+| 域名 | 厂商 | 用途 | 拦截后果 |
+| --- | --- | --- | --- |
+| `unity3d.com` | 国际广告网络与聚合 | Unity 引擎的资源、License 校验、云服务入口。 | Unity 打包的游戏可能无法校验授权或加载资源，出现启动失败。 |
+| `alicdn.com` | Alibaba | 淘宝、天猫、支付宝、闲鱼等业务的图片与静态资源 CDN，体量极大。 | 阿里系 App 与网页大面积白图、样式丢失，基本不可用。 |
+| `baidu.com` | Baidu | 搜索、账号、网盘、地图、百家号等业务的宿主域。 | 百度搜索打不开、百度网盘无法登录，大量依赖百度 OAuth 的 App 登录失效。 |
+| `baidustatic.com` | Baidu | 百度各业务的前端静态资源（JS/CSS/图片）分发。 | 百度系页面样式与交互脚本加载失败，页面错乱。 |
+| `bytedance.com` | ByteDance | 企业官网与部分 SDK 的配置、鉴权入口。 | 部分字节系 App 的 SDK 初始化与配置拉取失败，可能卡启动。 |
+| `is.snssdk.com` | ByteDance | 设备注册、服务端地址下发，App 启动阶段的第一跳。 | App 启动时拿不到服务端地址，可能卡在启动页或反复重试。 |
+| `isnssdk.com` | ByteDance | snssdk.com 的海外对应域，承载 TikTok 的业务接口。 | TikTok 无法加载内容与登录。 |
+| `pstatp.com` | ByteDance | 图片、视频、头像、封面等静态资源的 CDN。 | 字节系 App 与内嵌头条内容的第三方 App 大面积白图、视频无法播放。 |
+| `snssdk.com` | ByteDance | 内容流、账号、支付、直播等业务接口的宿主域，抖音与头条 App 的主干。 | 抖音、今日头条无法刷新内容、无法登录、无法播放视频，基本等于 App 报废。 |
+| `hicloud.com` | 国产终端厂商 | 华为云服务、HMS Core 能力、云空间与推送的基础设施域。 | 华为手机 HMS 服务异常，推送、云空间、应用市场可能集体失效。 |
+| `oppomobile.com` | 国产终端厂商 | ColorOS 系统服务、OPPO 推送（PUSH）与账号体系的宿主域。 | OPPO 手机收不到系统推送，账号登录异常。 |
+| `vivo.com.cn` | 国产终端厂商 | Funtouch OS / OriginOS 系统服务、vivo 推送与账号体系。 | vivo 手机推送与账号登录异常。 |
+| `xiaomi.com` | 国产终端厂商 | 小米账号登录、云服务、应用商店、系统更新的宿主域。 | 小米手机无法登录账号、应用商店打不开、系统更新失败。 |
+| `getui.com` | 国内第三方 SDK | 个推消息推送服务，同时提供用户画像与数据服务（个推大数据）。 | 使用个推的 App 收不到推送，部分 App 的启动引导依赖推送注册会卡住。 |
+| `igexin.com` | 国内第三方 SDK | 个推早期域名，老版本 SDK 仍在引用。 | 老版本 App 推送失效。 |
+| `jiguang.cn` | 国内第三方 SDK | 极光推送的长连接与 API 入口，同时承载一键登录（JVerification）与统计（JAnalytics）。 | App 收不到推送通知；用极光做一键登录的 App 会登录失败。 |
+| `jpush.cn` | 国内第三方 SDK | JPush 的短域名，用于推送通道与消息回执。 | 同 jiguang.cn。 |
+| `mob.com` | 国内第三方 SDK | 社交分享与第三方登录（ShareSDK）、本机号码一键登录（秒验）。 | App 的微信/QQ 分享与一键登录按钮失效，登录页可能卡住。 |
+| `google.com` | Google | 搜索、账号、登录、验证码、地图等核心服务的宿主域。 | 无法登录 Google 账号、无法通过 reCAPTCHA 验证，大量第三方 App 的 Google 登录一并失效。 |
+| `googleapis.com` | Google | 承载 Firebase、地图、登录、云服务的统一 API 网关，大量 App 的基础能力都在这个域下。 | 整域封禁会导致 Google 登录、地图、Firebase 推送、Play 服务集体失效，App 可能直接白屏或闪退。 |
+| `gstatic.com` | Google | 提供字体、JS 库、公共静态资源。 | 页面字体回退、部分站点 JS 加载失败、布局错乱。 |
+| `gifshow.com` | Kuaishou | 快手（原快手 GIF 秀）的视频与封面 CDN，仍被大量客户端引用。 | 快手视频封面与播放地址加载失败。 |
+| `kuaishou.com` | Kuaishou | 快手 App 与网页版的账号、内容、直播接口宿主域。 | 快手无法登录与刷新内容。 |
+| `facebook.com` | Meta | 账号登录、OAuth 授权、分享、Messenger 跳转的宿主域。 | 所有「用 Facebook 登录」的 App 与网站失效，分享按钮报错，OAuth 回调失败。 |
+| `facebook.net` | Meta | 承载 connect.facebook.net 等前端 SDK 资源。 | 网页内嵌的 Facebook 组件（登录、评论、分享）全部失效。 |
+| `fbcdn.net` | Meta | 头像、图片、视频、静态资源分发。 | 图片与视频大面积加载失败，社交类 App 界面破版。 |
+| `gtimg.com` | Tencent | 腾讯全系产品的图片与静态资源 CDN，头像、表情、封面、新闻配图都在这里。 | 微信、QQ、腾讯新闻大面积白图，界面破版。 |
+| `qq.com` | Tencent | QQ 登录、微信开放平台回调、腾讯文档、邮箱等业务的宿主域。 | QQ / 微信登录失效，大量第三方 App 的「QQ 登录」按钮报错。 |
+
+---
+
+> 本页由 `tools/build_docs.py` 从 `data/` 自动生成，请勿手工编辑。
+> 修正内容请改 YAML 后重新构建，或直接提交 Pull Request。

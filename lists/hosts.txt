@@ -1,0 +1,151 @@
+# hosts 拦截规则
+# Entries: 116
+# 包含判定：block, block-cost · 最低置信度：low
+
+# ===== 国际广告网络与聚合 =====
+0.0.0.0 adcolony.com
+0.0.0.0 applovin.com
+0.0.0.0 applvn.com
+0.0.0.0 chartboost.com
+0.0.0.0 fyber.com
+0.0.0.0 inmobi.com
+0.0.0.0 ironsrc.com
+0.0.0.0 liftoff.io
+0.0.0.0 mintegral.com
+0.0.0.0 mintegral.net
+0.0.0.0 supersonicads.com
+0.0.0.0 tapjoy.com
+0.0.0.0 unityads.unity3d.com
+0.0.0.0 vungle.com
+
+# ===== 国际程序化广告与监测 =====
+0.0.0.0 33across.com
+0.0.0.0 adform.net
+0.0.0.0 adnxs.com
+0.0.0.0 adsrvr.org
+0.0.0.0 amazon-adsystem.com
+0.0.0.0 casalemedia.com
+0.0.0.0 comscore.com
+0.0.0.0 criteo.com
+0.0.0.0 criteo.net
+0.0.0.0 magnite.com
+0.0.0.0 moatads.com
+0.0.0.0 openx.net
+0.0.0.0 outbrain.com
+0.0.0.0 pubmatic.com
+0.0.0.0 quantserve.com
+0.0.0.0 rubiconproject.com
+0.0.0.0 scorecardresearch.com
+0.0.0.0 smartadserver.com
+0.0.0.0 taboola.com
+0.0.0.0 teads.tv
+
+# ===== Alibaba =====
+0.0.0.0 alimama.com
+0.0.0.0 atanx.alicdn.com
+0.0.0.0 cnzz.com
+0.0.0.0 miaozhen.com
+0.0.0.0 mmstat.com
+0.0.0.0 tanx.com
+0.0.0.0 umeng.co
+0.0.0.0 umeng.com
+0.0.0.0 umengcloud.com
+
+# ===== 归因与深度链接 =====
+0.0.0.0 adjust.com
+0.0.0.0 appsflyer.com
+0.0.0.0 branch.io
+0.0.0.0 kochava.com
+0.0.0.0 singular.net
+0.0.0.0 tenjin.com
+
+# ===== Baidu =====
+0.0.0.0 cpro.baidu.com
+0.0.0.0 hm.baidu.com
+0.0.0.0 mobads.baidu.com
+0.0.0.0 pos.baidu.com
+0.0.0.0 tongji.baidu.com
+
+# ===== ByteDance =====
+0.0.0.0 csjplatform.com
+0.0.0.0 dm.bytedance.com
+0.0.0.0 log.snssdk.com
+0.0.0.0 mon.snssdk.com
+0.0.0.0 mssdk.bytedance.com
+0.0.0.0 pangle.io
+0.0.0.0 pangolin-sdk-toutiao-b.com
+0.0.0.0 pangolin-sdk-toutiao.com
+0.0.0.0 pangolin-sdk-toutiao1.com
+0.0.0.0 pangolin-x.com
+0.0.0.0 pangolin.snssdk.com
+0.0.0.0 pangolin16.isnssdk.com
+
+# ===== 国内广告联盟 =====
+0.0.0.0 adview.cn
+0.0.0.0 domob.cn
+0.0.0.0 gridsum.com
+0.0.0.0 mediav.com
+
+# ===== 国产终端厂商 =====
+0.0.0.0 ad.xiaomi.com
+0.0.0.0 adsfs.oppomobile.com
+0.0.0.0 metrics.data.hicloud.com
+0.0.0.0 mistat.xiaomi.com
+
+# ===== 国内第三方 SDK =====
+0.0.0.0 growingio.com
+0.0.0.0 sensorsdata.cn
+0.0.0.0 talkingdata.com
+
+# ===== 营销自动化与推送 =====
+0.0.0.0 airship.com
+0.0.0.0 appboy.com
+0.0.0.0 braze.com
+0.0.0.0 clevertap.com
+0.0.0.0 flurry.com
+0.0.0.0 onesignal.com
+0.0.0.0 pushwoosh.com
+
+# ===== Google =====
+0.0.0.0 2mdn.net
+0.0.0.0 adservice.google.com
+0.0.0.0 app-measurement.com
+0.0.0.0 crashlytics.com
+0.0.0.0 doubleclick.net
+0.0.0.0 firebaseinstallations.googleapis.com
+0.0.0.0 google-analytics.com
+0.0.0.0 googleadservices.com
+0.0.0.0 googlesyndication.com
+0.0.0.0 googletagmanager.com
+0.0.0.0 googletagservices.com
+
+# ===== Kuaishou =====
+0.0.0.0 adkwai.com
+
+# ===== Meta =====
+0.0.0.0 an.facebook.com
+0.0.0.0 connect.facebook.net
+
+# ===== 崩溃与性能监控 =====
+0.0.0.0 bugsnag.com
+0.0.0.0 instabug.com
+0.0.0.0 newrelic.com
+0.0.0.0 sentry.io
+
+# ===== 产品分析 =====
+0.0.0.0 amplitude.com
+0.0.0.0 fullstory.com
+0.0.0.0 heap.io
+0.0.0.0 hotjar.com
+0.0.0.0 mixpanel.com
+0.0.0.0 segment.com
+0.0.0.0 segment.io
+
+# ===== Tencent =====
+0.0.0.0 beacon.qq.com
+0.0.0.0 bugly.qq.com
+0.0.0.0 e.qq.com
+0.0.0.0 gdt.qq.com
+0.0.0.0 pgdt.gtimg.com
+0.0.0.0 pingjs.qq.com
+0.0.0.0 ta.qq.com

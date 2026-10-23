@@ -1,0 +1,154 @@
+! Title: ad-domain-atlas · AdGuard / ABP 拦截规则
+! Entries: 116
+! Generated: 2026-10-23 13:37 UTC
+! Source: https://github.com/DWcrea/ad-domain-atlas
+! 说明：由 data/ 下的 YAML 自动生成，请勿手工修改。
+! 包含判定：block, block-cost · 最低置信度：low
+
+! ===== 国际广告网络与聚合 =====
+||adcolony.com^
+||applovin.com^
+||applvn.com^
+||chartboost.com^
+||fyber.com^
+||inmobi.com^
+||ironsrc.com^
+||liftoff.io^
+||mintegral.com^
+||mintegral.net^
+||supersonicads.com^
+||tapjoy.com^
+||unityads.unity3d.com^
+||vungle.com^
+
+! ===== 国际程序化广告与监测 =====
+||33across.com^
+||adform.net^
+||adnxs.com^
+||adsrvr.org^
+||amazon-adsystem.com^
+||casalemedia.com^
+||comscore.com^
+||criteo.com^
+||criteo.net^
+||magnite.com^
+||moatads.com^
+||openx.net^
+||outbrain.com^
+||pubmatic.com^
+||quantserve.com^
+||rubiconproject.com^
+||scorecardresearch.com^
+||smartadserver.com^
+||taboola.com^
+||teads.tv^
+
+! ===== Alibaba =====
+||alimama.com^
+||atanx.alicdn.com^
+||cnzz.com^
+||miaozhen.com^
+||mmstat.com^
+||tanx.com^
+||umeng.co^
+||umeng.com^
+||umengcloud.com^
+
+! ===== 归因与深度链接 =====
+||adjust.com^
+||appsflyer.com^
+||branch.io^
+||kochava.com^
+||singular.net^
+||tenjin.com^
+
+! ===== Baidu =====
+||cpro.baidu.com^
+||hm.baidu.com^
+||mobads.baidu.com^
+||pos.baidu.com^
+||tongji.baidu.com^
+
+! ===== ByteDance =====
+||csjplatform.com^
+||dm.bytedance.com^
+||log.snssdk.com^
+||mon.snssdk.com^
+||mssdk.bytedance.com^
+||pangle.io^
+||pangolin-sdk-toutiao-b.com^
+||pangolin-sdk-toutiao.com^
+||pangolin-sdk-toutiao1.com^
+||pangolin-x.com^
+||pangolin.snssdk.com^
+||pangolin16.isnssdk.com^
+
+! ===== 国内广告联盟 =====
+||adview.cn^
+||domob.cn^
+||gridsum.com^
+||mediav.com^
+
+! ===== 国产终端厂商 =====
+||ad.xiaomi.com^
+||adsfs.oppomobile.com^
+||metrics.data.hicloud.com^
+||mistat.xiaomi.com^
+
+! ===== 国内第三方 SDK =====
+||growingio.com^
+||sensorsdata.cn^
+||talkingdata.com^
+
+! ===== 营销自动化与推送 =====
+||airship.com^
+||appboy.com^
+||braze.com^
+||clevertap.com^
+||flurry.com^
+||onesignal.com^
+||pushwoosh.com^
+
+! ===== Google =====
+||2mdn.net^
+||adservice.google.com^
+||app-measurement.com^
+||crashlytics.com^
+||doubleclick.net^
+||firebaseinstallations.googleapis.com^
+||google-analytics.com^
+||googleadservices.com^
+||googlesyndication.com^
+||googletagmanager.com^
+||googletagservices.com^
+
+! ===== Kuaishou =====
+||adkwai.com^
+
+! ===== Meta =====
+||an.facebook.com^
+||connect.facebook.net^
+
+! ===== 崩溃与性能监控 =====
+||bugsnag.com^
+||instabug.com^
+||newrelic.com^
+||sentry.io^
+
+! ===== 产品分析 =====
+||amplitude.com^
+||fullstory.com^
+||heap.io^
+||hotjar.com^
+||mixpanel.com^
+||segment.com^
+||segment.io^
+
+! ===== Tencent =====
+||beacon.qq.com^
+||bugly.qq.com^
+||e.qq.com^
+||gdt.qq.com^
+||pgdt.gtimg.com^
+||pingjs.qq.com^
+||ta.qq.com^

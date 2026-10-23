@@ -1,0 +1,133 @@
+# 厂商档案
+#
+# id 必须与 data/domains/<id>.yaml 的文件名一致。
+# 部分 id 是「同类服务商聚合」（如 adnet-global），此时每条域名的 owner 字段
+# 记录真实归属公司；具体公司的独立 id 则不必重复写 owner。
+
+- id: google
+  name: Google
+  name_cn: 谷歌
+  country: US
+  website: https://www.google.com
+  privacy: https://policies.google.com/privacy
+  note: 广告、分析、崩溃上报三条产品线共用同一套基础设施，域名高度交叉。只拦一个入口通常无效，广告请求会走备用域。
+
+- id: meta
+  name: Meta
+  name_cn: 前 Facebook
+  country: US
+  website: https://www.meta.com
+  privacy: https://www.facebook.com/privacy/policy
+  note: 同一批域名同时承担登录、分享与广告归因，是典型的「拦了会坏功能」区域，必须按主机名区分。
+
+- id: bytedance
+  name: ByteDance
+  name_cn: 字节跳动
+  country: CN
+  website: https://www.bytedance.com
+  privacy: https://www.bytedance.com/zh/privacy
+  note: 穿山甲（Pangle）是国内 App 内广告的最大单一来源，且大量使用域名轮换，必须整组拦。
+
+- id: tencent
+  name: Tencent
+  name_cn: 腾讯
+  country: CN
+  website: https://www.tencent.com
+  privacy: https://privacy.qq.com
+  note: 广点通（腾讯广告）与社交、支付共用 qq.com 主域，只能按子域精确拦。
+
+- id: alibaba
+  name: Alibaba
+  name_cn: 阿里巴巴
+  country: CN
+  website: https://www.alibaba.com
+  privacy: https://www.alibaba.com/privacy
+  note: 含友盟（Umeng）、CNZZ、秒针系统。阿里妈妈的广告域与淘宝业务域分离度较高，可整域拦；友盟统计则会同时影响推送。
+
+- id: baidu
+  name: Baidu
+  name_cn: 百度
+  country: CN
+  website: https://www.baidu.com
+  privacy: https://www.baidu.com/duty/yinsiquan.html
+  note: 百度联盟广告与百度统计分属不同子域，可按子域分别处理。
+
+- id: kuaishou
+  name: Kuaishou
+  name_cn: 快手
+  country: CN
+  website: https://www.kuaishou.com
+  privacy: https://www.kuaishou.com/about/policy
+  note: 快手广告域（磁力引擎）与快手主 App 业务域已分离。
+
+- id: cn-oem
+  name: 国产终端厂商
+  name_cn: ""
+  country: CN
+  website: ""
+  privacy: ""
+  note: 覆盖小米、华为、OPPO、vivo 的系统级广告与遥测，具体归属见每条的 owner。这类域名常被系统组件直接调用，拦错了会牵连系统更新、云服务、应用商店。
+
+- id: cn-sdk
+  name: 国内第三方 SDK
+  name_cn: ""
+  country: CN
+  website: ""
+  privacy: ""
+  note: 覆盖极光、个推、Mob、神策、GrowingIO、TalkingData。推送、统计、一键登录混在同一批 SDK 里，判定差异很大，务必逐条看。
+
+- id: cn-adnet
+  name: 国内广告联盟
+  name_cn: ""
+  country: CN
+  website: ""
+  privacy: ""
+  note: 覆盖 AdView、多盟、MediaV、国双。中小 App 与免费工具类应用的主要变现渠道，误杀率低。
+
+- id: adnet-global
+  name: 国际广告网络与聚合
+  name_cn: ""
+  country: ""
+  website: ""
+  privacy: ""
+  note: 覆盖 AppLovin、Unity / ironSource、Mintegral、Vungle、InMobi、Digital Turbine 等。海外 App 变现与买量的主力，多数可整域拦。
+
+- id: adtech-global
+  name: 国际程序化广告与监测
+  name_cn: ""
+  country: ""
+  website: ""
+  privacy: ""
+  note: 覆盖 Criteo、Taboola、PubMatic、Magnite、OpenX、Xandr、Comscore 等。以 Web 端为主，属于纯广告与监测基础设施，误杀风险最低。
+
+- id: attribution
+  name: 归因与深度链接
+  name_cn: ""
+  country: ""
+  website: ""
+  privacy: ""
+  note: 覆盖 AppsFlyer、Adjust、Branch、Kochava、Singular、Tenjin。用户无感知，但部分 App 用归因结果发放奖励或决定邀请码，拦掉可能影响运营活动。
+
+- id: product-analytics
+  name: 产品分析
+  name_cn: ""
+  country: ""
+  website: ""
+  privacy: ""
+  note: 覆盖 Mixpanel、Amplitude、Segment、Heap、Hotjar、FullStory。埋点数据管道，拦掉不影响功能；Segment 一类 CDP 有时承载业务数据同步。
+
+- id: observability
+  name: 崩溃与性能监控
+  name_cn: ""
+  country: ""
+  website: ""
+  privacy: ""
+  note: 覆盖 Sentry、Bugsnag、Instabug、New Relic。拦截后开发者收不到崩溃数据，终端用户完全无感。
+
+- id: engagement
+  name: 营销自动化与推送
+  name_cn: ""
+  country: ""
+  website: ""
+  privacy: ""
+  note: 覆盖 Braze、CleverTap、Airship、OneSignal、Pushwoosh、Flurry。拦掉会收不到通知，少数 App 的登录验证码也走同一通道。

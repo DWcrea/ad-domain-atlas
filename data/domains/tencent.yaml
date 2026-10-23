@@ -1,0 +1,96 @@
+# 腾讯 Tencent
+#
+# 广点通（腾讯广告）的投放域与社交/支付主域高度重叠，只能按子域拦。
+# 好消息是广告子域命名规律清晰，误杀风险低。
+
+vendor: tencent
+domains:
+  - domain: gdt.qq.com
+    product: 广点通 / 腾讯广告
+    category: ad-serving
+    purpose: 腾讯广告（原广点通）的广告请求与投放接口，微信、QQ、腾讯视频、优量汇的广告位都从这里取量。
+    verdict: block
+    scope: host
+    impact: 腾讯系广告位空白；微信聊天、支付、QQ 登录不受影响。
+    confidence: high
+    tags: [广点通, 腾讯广告]
+
+  - domain: e.qq.com
+    product: 广点通曝光与点击上报
+    category: ad-serving
+    purpose: 广告曝光、点击、转化的事件上报端点，广告请求成功后紧接着打这里。
+    verdict: block
+    scope: host
+    impact: 广告无法计数，广告位大概率直接不渲染（等同拦掉）。
+    confidence: high
+    tags: [广点通, 计数]
+
+  - domain: pgdt.gtimg.com
+    product: 广点通素材 CDN
+    category: ad-serving
+    purpose: 存放广点通广告的图片与视频素材，由投放域引用。
+    verdict: block
+    scope: host
+    impact: 广告素材加载失败，广告位显示空白。
+    confidence: high
+    tags: [素材CDN, 广点通]
+
+  - domain: gtimg.com
+    product: 腾讯图片 CDN
+    category: infra
+    purpose: 腾讯全系产品的图片与静态资源 CDN，头像、表情、封面、新闻配图都在这里。
+    verdict: keep
+    scope: apex
+    impact: 微信、QQ、腾讯新闻大面积白图，界面破版。
+    confidence: high
+    tags: [CDN, 高危误杀]
+
+  - domain: qq.com
+    product: 腾讯主域
+    category: infra
+    purpose: QQ 登录、微信开放平台回调、腾讯文档、邮箱等业务的宿主域。
+    verdict: keep
+    scope: apex
+    impact: QQ / 微信登录失效，大量第三方 App 的「QQ 登录」按钮报错。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: ta.qq.com
+    product: 腾讯分析（TA）
+    category: analytics
+    purpose: 网页与 H5 的访问统计、来源分析、转化漏斗采集端点。
+    verdict: block
+    scope: host
+    impact: 站点统计数据缺失，用户无感。
+    confidence: high
+    tags: [网站统计]
+
+  - domain: pingjs.qq.com
+    product: 腾讯前端性能监控
+    category: analytics
+    purpose: 页面性能指标（加载耗时、JS 错误）的采集脚本与上报端点。
+    verdict: block
+    scope: host
+    impact: 性能数据缺失，不影响页面功能。
+    confidence: medium
+    tags: [性能监控]
+
+  - domain: beacon.qq.com
+    product: 腾讯灯塔（Beacon）
+    category: analytics
+    purpose: 客户端质量与行为数据上报，覆盖卡顿、崩溃、页面耗时。
+    verdict: block-cost
+    scope: host
+    impact: 质量监控数据缺失；部分 App 把业务埋点也放这里，会一起丢。
+    confidence: medium
+    tags: [监控, 埋点]
+
+  - domain: bugly.qq.com
+    product: 腾讯 Bugly
+    category: crash
+    purpose: 崩溃、ANR、卡顿上报与热更新下发，国内 App 使用极广。
+    verdict: block-cost
+    scope: host
+    impact: 开发者收不到崩溃数据；若 App 用 Bugly 做热修复下发，可能影响版本更新。
+    confidence: high
+    tags: [崩溃上报, 热更新]

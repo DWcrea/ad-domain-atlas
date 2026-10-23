@@ -1,0 +1,107 @@
+# 阿里巴巴 Alibaba（含友盟 / CNZZ / 秒针）
+#
+# 阿里妈妈体系（tanx / alimama）与淘宝业务域分离度较高，可以放心整域拦。
+# 友盟则是「统计 + 推送」一体，拦之前先想清楚要不要推送。
+
+vendor: alibaba
+domains:
+  - domain: tanx.com
+    product: 阿里妈妈 Tanx 广告交易平台
+    category: ad-exchange
+    purpose: 阿里的 RTB 广告交易市场，向媒体方提供广告位竞价与素材。淘宝联盟、站外媒体的展示广告大量走这里。
+    verdict: block
+    scope: apex
+    impact: 阿里系站外展示广告空白；淘宝、支付宝功能不受影响。
+    confidence: high
+    tags: [RTB, 阿里妈妈]
+
+  - domain: alimama.com
+    product: 阿里妈妈投放平台
+    category: ad-serving
+    purpose: 淘宝联盟与直通车的投放管理、素材与点击跳转接口。
+    verdict: block
+    scope: apex
+    impact: 电商推广位与淘宝客链接失效；正常购物不受影响。
+    confidence: high
+    tags: [阿里妈妈, 电商广告]
+
+  - domain: atanx.alicdn.com
+    product: 阿里妈妈素材 CDN
+    category: ad-serving
+    purpose: 存放 Tanx 广告素材，由投放域引用。挂在 alicdn.com 主 CDN 下，必须按主机名拦。
+    verdict: block
+    scope: host
+    impact: 广告素材加载失败；阿里系业务图片走 gw.alicdn.com，不受影响。
+    confidence: high
+    tags: [素材CDN, 混用]
+
+  - domain: alicdn.com
+    product: 阿里巴巴 CDN
+    category: infra
+    purpose: 淘宝、天猫、支付宝、闲鱼等业务的图片与静态资源 CDN，体量极大。
+    verdict: keep
+    scope: apex
+    impact: 阿里系 App 与网页大面积白图、样式丢失，基本不可用。
+    confidence: high
+    tags: [CDN, 高危误杀]
+
+  - domain: mmstat.com
+    product: 阿里 UT 统计
+    category: analytics
+    purpose: 阿里系 App 的埋点上报域（User Track），记录页面浏览、点击、停留时长。
+    verdict: block
+    scope: apex
+    impact: 埋点丢失，淘宝/支付宝功能正常。
+    confidence: high
+    tags: [埋点, 阿里系]
+
+  - domain: umeng.com
+    product: 友盟+（U-App / U-Push）
+    category: analytics
+    purpose: 国内使用最广的第三方统计 SDK。同一套域名同时承担统计上报与 U-Push 推送通道。
+    verdict: block-cost
+    scope: apex
+    impact: 统计全丢是必然；如果 App 的推送走友盟，通知会一起收不到。
+    confidence: high
+    tags: [统计, 推送, 混用]
+    notes: 不确定 App 是否用友盟推送时，先只拦统计上报路径，观察一天再决定是否整域。
+
+  - domain: umengcloud.com
+    product: 友盟数据上报端点
+    category: analytics
+    purpose: U-App 的实际数据上报与配置下发域名，与 umeng.com 互为补充。
+    verdict: block-cost
+    scope: apex
+    impact: 同 umeng.com；只拦一个通常拦不干净。
+    confidence: high
+    tags: [统计]
+
+  - domain: umeng.co
+    product: 友盟短域
+    category: analytics
+    purpose: 友盟的短域名，用于素材与上报的分流。
+    verdict: block-cost
+    scope: apex
+    impact: 同 umeng.com。
+    confidence: medium
+    tags: [统计]
+
+  - domain: cnzz.com
+    product: CNZZ 站长统计（友盟旗下）
+    category: analytics
+    purpose: 面向中小站长的访问统计，采集 PV/UV、来源、地域。
+    verdict: block
+    scope: apex
+    impact: 站点统计缺失，用户无感。
+    confidence: high
+    tags: [网站统计]
+
+  - domain: miaozhen.com
+    product: 秒针系统（Miaozhen）
+    category: measurement
+    purpose: 第三方广告监测，做曝光验证、可见性测量与到达率统计，广告主用它给媒体结账。
+    verdict: block
+    scope: apex
+    impact: 广告监测数据缺失；广告位可能因无法验证曝光而减少投放，间接减少广告。
+    confidence: high
+    tags: [广告监测, 第三方]

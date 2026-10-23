@@ -1,0 +1,180 @@
+# 字节跳动 ByteDance
+#
+# 穿山甲（Pangle）是国内 App 内广告的最大单一来源，特点是「一个功能一组域名」，
+# 主域被拦后 SDK 会自动切到 -b / -toutiao1~4 / pangolin-x 等备用域。
+# 只拦 pangolin-sdk-toutiao.com 基本无效，要整组拦。
+
+vendor: bytedance
+domains:
+  - domain: pangolin-sdk-toutiao.com
+    product: 穿山甲（Pangle）广告 SDK
+    category: ad-serving
+    purpose: 国内穿山甲 SDK 的服务端入口，承担广告请求、竞价、配置下发与素材地址返回。集成穿山甲的 App 每开屏、每次切页都会打这里。
+    verdict: block
+    scope: apex
+    impact: 集成穿山甲广告的 App 广告位空白，App 本身功能不受影响。
+    confidence: high
+    tags: [穿山甲, 移动广告, 开屏广告]
+
+  - domain: pangolin-sdk-toutiao-b.com
+    product: 穿山甲备用域（B）
+    category: ad-serving
+    purpose: 穿山甲主域不可用时的轮换域名，功能与主域完全等价。
+    verdict: block
+    scope: apex
+    impact: 同上；不拦则会绕过主域封禁继续出广告。
+    confidence: high
+    tags: [穿山甲, 备用域名]
+
+  - domain: pangolin-sdk-toutiao1.com
+    product: 穿山甲备用域（1~4）
+    category: ad-serving
+    purpose: 穿山甲按序号轮换的一组域名，-toutiao1 至 -toutiao4 同时存在，SDK 会在失败时依次重试。
+    verdict: block
+    scope: apex
+    impact: 同上；这是「拦了还有广告」的最常见原因。
+    confidence: high
+    tags: [穿山甲, 备用域名]
+    notes: 实际规则建议直接用通配 `||pangolin-sdk-toutiao*.com^`，避免逐个跟进新增序号。
+
+  - domain: pangolin-x.com
+    product: 穿山甲关联域
+    category: ad-serving
+    purpose: 穿山甲体系内的辅助域，用于配置拉取与请求分流，被主流规则库普遍收录。
+    verdict: block
+    scope: apex
+    impact: 无业务副作用。
+    confidence: medium
+    tags: [穿山甲]
+
+  - domain: pangolin.snssdk.com
+    product: 穿山甲（snssdk 下接口）
+    category: ad-serving
+    purpose: 挂在 snssdk.com 主域下的穿山甲广告接口，与抖音业务接口共用根域，必须按主机名拦。
+    verdict: block
+    scope: host
+    impact: 仅广告接口被拦，抖音/头条的内容与账号接口不受影响。
+    confidence: high
+    tags: [穿山甲, 混用]
+
+  - domain: pangolin16.isnssdk.com
+    product: 穿山甲国际版接口
+    category: ad-serving
+    purpose: TikTok / 海外字节系 App 的穿山甲广告接口。
+    verdict: block
+    scope: host
+    impact: 海外版 App 广告位空白。
+    confidence: medium
+    tags: [穿山甲, 海外]
+
+  - domain: pangle.io
+    product: Pangle（穿山甲海外版）
+    category: ad-serving
+    purpose: 面向海外开发者的广告变现平台，提供广告请求、报表与素材接口。
+    verdict: block
+    scope: apex
+    impact: 海外 App 的 Pangle 广告位空白。
+    confidence: high
+    tags: [穿山甲, 海外]
+
+  - domain: csjplatform.com
+    product: 穿山甲平台域（csj = 穿山甲）
+    category: ad-serving
+    purpose: 命名与穿山甲缩写一致，被 OISD 等主流规则库收录，用途指向广告平台服务端；具体接口未逐一验证。
+    verdict: block
+    scope: apex
+    impact: 无业务副作用。
+    confidence: medium
+    tags: [穿山甲, 待验证]
+    notes: 归类依据是命名与规则库收录，未做抓包验证。若发现误杀请提 issue。
+
+  - domain: bytedance.com
+    product: 字节跳动主域
+    category: infra
+    purpose: 企业官网与部分 SDK 的配置、鉴权入口。
+    verdict: keep
+    scope: apex
+    impact: 部分字节系 App 的 SDK 初始化与配置拉取失败，可能卡启动。
+    confidence: medium
+    tags: [基础设施]
+
+  - domain: mssdk.bytedance.com
+    product: 字节通用 SDK 服务
+    category: tracking
+    purpose: 提供设备标识、SDK 配置、灰度开关等通用能力，被抖音、头条、番茄等多款 App 共用。
+    verdict: block-cost
+    scope: host
+    impact: 部分 App 的 SDK 初始化降级，可能出现功能缺失或埋点全丢，但不至于崩溃。
+    confidence: medium
+    tags: [设备标识, SDK]
+
+  - domain: dm.bytedance.com
+    product: 字节数据管理平台（DMP）
+    category: tracking
+    purpose: 人群包与用户标签的同步接口，服务于广告定向。
+    verdict: block-cost
+    scope: host
+    impact: 广告定向精度下降（对用户是好事），不影响业务功能。
+    confidence: medium
+    tags: [DMP, 广告定向]
+
+  - domain: snssdk.com
+    product: 抖音 / 今日头条核心 API
+    category: infra
+    purpose: 内容流、账号、支付、直播等业务接口的宿主域，抖音与头条 App 的主干。
+    verdict: keep
+    scope: apex
+    impact: 抖音、今日头条无法刷新内容、无法登录、无法播放视频，基本等于 App 报废。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: isnssdk.com
+    product: TikTok / 海外字节核心 API
+    category: infra
+    purpose: snssdk.com 的海外对应域，承载 TikTok 的业务接口。
+    verdict: keep
+    scope: apex
+    impact: TikTok 无法加载内容与登录。
+    confidence: medium
+    tags: [基础设施, 高危误杀]
+
+  - domain: pstatp.com
+    product: 字节内容 CDN
+    category: infra
+    purpose: 图片、视频、头像、封面等静态资源的 CDN。广告素材也走这里，与业务内容无法区分。
+    verdict: keep
+    scope: apex
+    impact: 字节系 App 与内嵌头条内容的第三方 App 大面积白图、视频无法播放。
+    confidence: high
+    tags: [CDN, 高危误杀]
+    notes: 想拦广告素材只能靠路径特征，不能按域拦。
+
+  - domain: log.snssdk.com
+    product: 字节日志上报
+    category: tracking
+    purpose: App 运行日志与行为埋点的批量上报通道。
+    verdict: block-cost
+    scope: host
+    impact: 埋点与诊断日志丢失，开发者排查线上问题会缺数据；用户侧无感。
+    confidence: high
+    tags: [日志, 埋点]
+
+  - domain: mon.snssdk.com
+    product: 字节监控上报
+    category: analytics
+    purpose: 性能、卡顿、网络质量等监控数据的上报端点。
+    verdict: block-cost
+    scope: host
+    impact: 监控数据缺失，不影响功能。
+    confidence: high
+    tags: [监控]
+
+  - domain: is.snssdk.com
+    product: 字节设备注册与服务发现
+    category: infra
+    purpose: 设备注册、服务端地址下发，App 启动阶段的第一跳。
+    verdict: keep
+    scope: host
+    impact: App 启动时拿不到服务端地址，可能卡在启动页或反复重试。
+    confidence: medium
+    tags: [基础设施, 高危误杀]

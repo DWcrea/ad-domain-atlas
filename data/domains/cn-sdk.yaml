@@ -1,0 +1,94 @@
+# 国内第三方 SDK（极光 / 个推 / Mob / 神策 / GrowingIO / TalkingData）
+#
+# 这一组最容易「一刀切拦错」：同一个 SDK 往往同时提供推送（功能）和统计（非功能）。
+# 判定原则：拦了会让用户收不到通知的，一律 keep 或 block-cost。
+
+vendor: cn-sdk
+domains:
+  - domain: jiguang.cn
+    product: 极光 JPush / JVerification
+    category: push
+    owner: 极光 Aurora
+    purpose: 极光推送的长连接与 API 入口，同时承载一键登录（JVerification）与统计（JAnalytics）。
+    verdict: keep
+    scope: apex
+    impact: App 收不到推送通知；用极光做一键登录的 App 会登录失败。
+    confidence: high
+    tags: [推送, 一键登录, 混用]
+
+  - domain: jpush.cn
+    product: 极光推送短域
+    category: push
+    owner: 极光 Aurora
+    purpose: JPush 的短域名，用于推送通道与消息回执。
+    verdict: keep
+    scope: apex
+    impact: 同 jiguang.cn。
+    confidence: medium
+    tags: [推送]
+
+  - domain: getui.com
+    product: 个推（Getui）
+    category: push
+    owner: 每日互动
+    purpose: 个推消息推送服务，同时提供用户画像与数据服务（个推大数据）。
+    verdict: keep
+    scope: apex
+    impact: 使用个推的 App 收不到推送，部分 App 的启动引导依赖推送注册会卡住。
+    confidence: high
+    tags: [推送, 混用]
+
+  - domain: igexin.com
+    product: 个推旧域
+    category: push
+    owner: 每日互动
+    purpose: 个推早期域名，老版本 SDK 仍在引用。
+    verdict: keep
+    scope: apex
+    impact: 老版本 App 推送失效。
+    confidence: medium
+    tags: [推送, 历史域名]
+
+  - domain: sensorsdata.cn
+    product: 神策数据（Sensors Analytics）
+    category: analytics
+    owner: 神策数据
+    purpose: 埋点上报主域（/sa、/sdk），记录事件、页面、用户属性。私有化部署的客户不用这个域。
+    verdict: block-cost
+    scope: apex
+    impact: 埋点数据全丢；不影响 App 功能。
+    confidence: high
+    tags: [埋点, 用户行为]
+
+  - domain: growingio.com
+    product: GrowingIO
+    category: analytics
+    owner: GrowingIO
+    purpose: 无埋点采集与热图分析，自动抓取页面元素与点击行为。
+    verdict: block
+    scope: apex
+    impact: 行为分析数据缺失，功能正常。
+    confidence: high
+    tags: [埋点, 热图]
+
+  - domain: talkingdata.com
+    product: TalkingData
+    category: analytics
+    owner: TalkingData
+    purpose: 移动统计与广告归因，同时提供数据交易服务（TalkingData AdTracking）。
+    verdict: block
+    scope: apex
+    impact: 统计数据缺失；部分 App 靠它做渠道归因，可能影响渠道统计报表。
+    confidence: high
+    tags: [统计, 归因]
+
+  - domain: mob.com
+    product: MobTech ShareSDK / 秒验
+    category: infra
+    owner: MobTech
+    purpose: 社交分享与第三方登录（ShareSDK）、本机号码一键登录（秒验）。
+    verdict: keep
+    scope: apex
+    impact: App 的微信/QQ 分享与一键登录按钮失效，登录页可能卡住。
+    confidence: medium
+    tags: [一键登录, 分享, 高危误杀]

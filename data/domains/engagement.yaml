@@ -1,0 +1,83 @@
+# 营销自动化与推送（Braze / CleverTap / Airship / OneSignal / Pushwoosh / Flurry）
+#
+# 这一组「推送」和「营销」混在一起：拦掉会收不到通知，
+# 少数 App 的登录验证码也走同一通道，务必谨慎。
+
+vendor: engagement
+domains:
+  - domain: braze.com
+    product: Braze
+    category: push
+    owner: Braze
+    purpose: 跨渠道营销自动化，统一管理推送、站内信、邮件与短信的触达节奏。
+    verdict: block-cost
+    scope: apex
+    impact: 营销推送与站内消息收不到；若验证码走 Braze 模板，可能影响登录。
+    confidence: high
+    tags: [营销自动化, 推送]
+
+  - domain: appboy.com
+    product: Braze 旧域（Appboy）
+    category: push
+    owner: Braze
+    purpose: Braze 改名前的域名，老版本 SDK 仍在引用。
+    verdict: block-cost
+    scope: apex
+    impact: 同 braze.com。
+    confidence: medium
+    tags: [历史域名, 推送]
+
+  - domain: clevertap.com
+    product: CleverTap
+    category: push
+    owner: CleverTap
+    purpose: 用户分群与营销自动化，主打推送与应用内消息。
+    verdict: block-cost
+    scope: apex
+    impact: 推送与营销消息收不到。
+    confidence: high
+    tags: [营销自动化, 推送]
+
+  - domain: airship.com
+    product: Airship（原 Urban Airship）
+    category: push
+    owner: Airship
+    purpose: 推送基础设施与消息编排，服务大量欧美媒体与零售 App。
+    verdict: block-cost
+    scope: apex
+    impact: 推送全部收不到；若 App 用它下发配置，可能有功能异常。
+    confidence: high
+    tags: [推送, 基础设施]
+
+  - domain: onesignal.com
+    product: OneSignal
+    category: push
+    owner: OneSignal
+    purpose: 免费的跨平台推送服务，中小开发者常用。
+    verdict: block-cost
+    scope: apex
+    impact: 推送通知收不到；App 功能本身不受影响，但用户会漏掉消息提醒。
+    confidence: high
+    tags: [推送]
+
+  - domain: pushwoosh.com
+    product: Pushwoosh
+    category: push
+    owner: Pushwoosh
+    purpose: 推送与营销自动化平台，东欧市场较多。
+    verdict: block-cost
+    scope: apex
+    impact: 推送通知收不到；App 功能本身不受影响，只是少了触达渠道。
+    confidence: high
+    tags: [推送]
+
+  - domain: flurry.com
+    product: Flurry（Yahoo）
+    category: analytics
+    owner: Yahoo
+    purpose: 移动应用分析与广告归因，Yahoo 旗下的老牌移动统计 SDK。
+    verdict: block
+    scope: apex
+    impact: 统计数据缺失，用户无感。
+    confidence: high
+    tags: [移动统计, 归因]

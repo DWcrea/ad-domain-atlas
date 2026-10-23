@@ -1,0 +1,56 @@
+! Title: ad-domain-atlas · 放行清单（误杀保护）
+! Entries: 28
+! Generated: 2026-10-23 13:37 UTC
+! Source: https://github.com/DWcrea/ad-domain-atlas
+! 说明：由 data/ 下的 YAML 自动生成，请勿手工修改。
+! 建议置于所有拦截规则之前
+
+! 语法说明：@@ 开头为白名单规则，AdGuard / uBlock 均支持。
+
+! ===== 国际广告网络与聚合 =====
+@@||unity3d.com^
+
+! ===== Alibaba =====
+@@||alicdn.com^
+
+! ===== Baidu =====
+@@||baidu.com^
+@@||baidustatic.com^
+
+! ===== ByteDance =====
+@@||bytedance.com^
+@@||is.snssdk.com^
+@@||isnssdk.com^
+@@||pstatp.com^
+@@||snssdk.com^
+
+! ===== 国产终端厂商 =====
+@@||hicloud.com^
+@@||oppomobile.com^
+@@||vivo.com.cn^
+@@||xiaomi.com^
+
+! ===== 国内第三方 SDK =====
+@@||getui.com^
+@@||igexin.com^
+@@||jiguang.cn^
+@@||jpush.cn^
+@@||mob.com^
+
+! ===== Google =====
+@@||google.com^
+@@||googleapis.com^
+@@||gstatic.com^
+
+! ===== Kuaishou =====
+@@||gifshow.com^
+@@||kuaishou.com^
+
+! ===== Meta =====
+@@||facebook.com^
+@@||facebook.net^
+@@||fbcdn.net^
+
+! ===== Tencent =====
+@@||gtimg.com^
+@@||qq.com^

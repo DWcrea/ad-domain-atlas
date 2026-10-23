@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# 本地抓包与临时文件
+*.pcap
+*.har
+tmp/
+scratch/
+
+# RDAP 本地缓存（可重新生成）
+data/rdap.json

@@ -1,0 +1,96 @@
+# 国产终端厂商（小米 / 华为 / OPPO / vivo）
+#
+# 系统级广告与遥测。这类域名的特点是「被系统组件直接调用」，
+# 拦错了会牵连系统更新、云服务、应用商店，排查成本很高。
+# 每条用 owner 标注实际厂商。
+
+vendor: cn-oem
+domains:
+  - domain: xiaomi.com
+    product: 小米账号 / 云服务
+    category: infra
+    owner: 小米 Xiaomi
+    purpose: 小米账号登录、云服务、应用商店、系统更新的宿主域。
+    verdict: keep
+    scope: apex
+    impact: 小米手机无法登录账号、应用商店打不开、系统更新失败。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: mistat.xiaomi.com
+    product: 小米统计（MIUI 遥测）
+    category: analytics
+    owner: 小米 Xiaomi
+    purpose: MIUI/HyperOS 与小米系 App 的使用统计、广告归因、设备画像上报。
+    verdict: block-cost
+    scope: host
+    impact: 系统遥测数据缺失；部分小米系 App 的广告归因失效，功能正常。
+    confidence: medium
+    tags: [系统遥测, 广告归因]
+
+  - domain: ad.xiaomi.com
+    product: 小米广告（MIUI 广告）
+    category: ad-serving
+    owner: 小米 Xiaomi
+    purpose: MIUI 系统广告位（负一屏、天气、文件夹推荐）的广告请求与素材下发。
+    verdict: block
+    scope: host
+    impact: 系统内推荐位空白；系统功能不受影响。
+    confidence: medium
+    tags: [系统广告, 移动广告]
+
+  - domain: hicloud.com
+    product: 华为云 / HMS 基础设施
+    category: infra
+    owner: 华为 Huawei
+    purpose: 华为云服务、HMS Core 能力、云空间与推送的基础设施域。
+    verdict: keep
+    scope: apex
+    impact: 华为手机 HMS 服务异常，推送、云空间、应用市场可能集体失效。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: metrics.data.hicloud.com
+    product: 华为分析 / HMS 遥测
+    category: analytics
+    owner: 华为 Huawei
+    purpose: 华为分析服务（Analytics Kit）与系统遥测的数据上报端点。
+    verdict: block-cost
+    scope: host
+    impact: 统计数据缺失；若 App 依赖 HMS 推送 token 注册链路，需观察是否受影响。
+    confidence: medium
+    tags: [系统遥测, HMS]
+
+  - domain: oppomobile.com
+    product: OPPO 系统服务 / 推送
+    category: infra
+    owner: OPPO
+    purpose: ColorOS 系统服务、OPPO 推送（PUSH）与账号体系的宿主域。
+    verdict: keep
+    scope: apex
+    impact: OPPO 手机收不到系统推送，账号登录异常。
+    confidence: medium
+    tags: [基础设施, 高危误杀]
+
+  - domain: adsfs.oppomobile.com
+    product: OPPO 广告素材 CDN
+    category: ad-serving
+    owner: OPPO
+    purpose: ColorOS 系统广告与 OPPO 联盟广告的素材分发。
+    verdict: block
+    scope: host
+    impact: 系统广告位素材加载失败显示空白；系统功能不受影响。
+    confidence: low
+    tags: [系统广告, 待验证]
+    notes: 子域命名与用途来自规则库与抓包经验，未逐一复核，标记为待验证。
+
+  - domain: vivo.com.cn
+    product: vivo 系统服务 / 推送
+    category: infra
+    owner: vivo
+    purpose: Funtouch OS / OriginOS 系统服务、vivo 推送与账号体系。
+    verdict: keep
+    scope: apex
+    impact: vivo 手机推送与账号登录异常。
+    confidence: medium
+    tags: [基础设施, 高危误杀]

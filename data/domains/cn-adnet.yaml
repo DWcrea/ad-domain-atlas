@@ -1,0 +1,49 @@
+# 国内广告联盟与第三方监测（AdView / 多盟 / MediaV / 国双）
+#
+# 中小 App 与免费工具类应用的主要变现渠道。这类域名与业务完全解耦，误杀率低。
+
+vendor: cn-adnet
+domains:
+  - domain: adview.cn
+    product: AdView 移动广告平台
+    category: ad-serving
+    owner: AdView
+    purpose: 移动广告联盟，为中小 App 提供 banner、插屏、开屏广告的请求与素材接口。
+    verdict: block
+    scope: apex
+    impact: 接入 AdView 的 App 广告位空白，功能正常。
+    confidence: high
+    tags: [广告联盟, 移动广告]
+
+  - domain: domob.cn
+    product: 多盟（Domob）
+    category: ad-serving
+    owner: 多盟
+    purpose: 移动广告联盟与 DSP，提供广告投放、素材与点击跳转。
+    verdict: block
+    scope: apex
+    impact: 广告位空白。
+    confidence: medium
+    tags: [广告联盟]
+
+  - domain: mediav.com
+    product: MediaV（聚胜万合）
+    category: ad-serving
+    owner: 聚胜万合
+    purpose: 效果广告投放与精准定向平台，电商与游戏行业使用较多。
+    verdict: block
+    scope: apex
+    impact: 广告位空白。
+    confidence: medium
+    tags: [效果广告, DSP]
+
+  - domain: gridsum.com
+    product: 国双（Gridsum）
+    category: measurement
+    owner: 国双科技
+    purpose: 网站与广告的第三方数据分析、监测与归因，常见于大型企业站点。
+    verdict: block
+    scope: apex
+    impact: 监测数据缺失，用户无感。
+    confidence: medium
+    tags: [广告监测, 数据分析]

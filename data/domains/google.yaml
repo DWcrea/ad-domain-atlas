@@ -1,0 +1,147 @@
+# Google
+#
+# 提示：Google 的广告链路是多域冗余的。只拦 doubleclick.net 不会让广告消失，
+# 请求会转向 googlesyndication.com / googleadservices.com。要有效果就整组拦。
+
+vendor: google
+domains:
+  - domain: doubleclick.net
+    product: Google Ad Manager / DoubleClick（DFP）
+    category: ad-serving
+    purpose: Google 展示广告的核心投放域。ad.doubleclick.net 承载广告素材与点击跳转，stats.g.doubleclick.net 负责曝光与点击计数，securepubads.g.doubleclick.net 提供网页广告位接口。
+    verdict: block
+    scope: apex
+    impact: 网页与 App 内的 Google 系广告位变为空白，广告链接点不开，属预期行为。
+    confidence: high
+    tags: [展示广告, RTB, 海外]
+
+  - domain: googlesyndication.com
+    product: AdSense / AdMob
+    category: ad-serving
+    purpose: pagead2.googlesyndication.com 下发广告脚本，tpc.googlesyndication.com 存放广告素材，googleads.g.doubleclick.net 与它同源。移动端 AdMob 与网页 AdSense 都走这里。
+    verdict: block
+    scope: apex
+    impact: 广告位空白；不影响 Google 账号、搜索、地图等业务。
+    confidence: high
+    tags: [展示广告, AdMob, AdSense]
+
+  - domain: googleadservices.com
+    product: Google Ads 点击与转化跟踪
+    category: ad-serving
+    purpose: 广告点击后的跳转与转化归因（pagead/aclk、pagead/conversion）。用户点广告时先到这里记账，再跳到落地页。
+    verdict: block
+    scope: apex
+    impact: 广告点击无法记账与跳转；正常站内跳转不受影响。
+    confidence: high
+    tags: [点击跟踪, 转化]
+
+  - domain: adservice.google.com
+    product: AdMob / AdX 移动端广告请求
+    category: ad-serving
+    purpose: 移动 App 内广告 SDK 的请求入口，常见路径 /adsid/integrator.js 与 /pagead/。与 googlesyndication.com 互为补充，只拦一个会漏。
+    verdict: block
+    scope: host
+    impact: App 内 Google 广告请求失败，广告位空白。
+    confidence: high
+    tags: [AdMob, 移动广告]
+
+  - domain: 2mdn.net
+    product: DoubleClick Studio 素材 CDN
+    category: ad-serving
+    purpose: 存放 DoubleClick 广告素材（图片、视频、富媒体创意），由广告投放域引用。
+    verdict: block
+    scope: apex
+    impact: 广告素材加载失败，广告位显示空白或占位图。
+    confidence: high
+    tags: [素材CDN]
+
+  - domain: googletagservices.com
+    product: Google Publisher Tag（GPT）
+    category: ad-serving
+    purpose: 网页广告位的调度脚本（gpt.js），负责向 Ad Manager 请求广告并渲染到页面。
+    verdict: block
+    scope: apex
+    impact: 使用 GPT 的网站广告位不渲染；若站点把业务脚本挂在该域会异常（少见）。
+    confidence: high
+    tags: [网页广告]
+
+  - domain: googletagmanager.com
+    product: Google Tag Manager（GTM）
+    category: tracking
+    purpose: 标签管理器容器。除了 GA4 与广告像素，很多网站把业务脚本、客服组件、A/B 测试也塞在同一个容器里。
+    verdict: block-cost
+    scope: apex
+    impact: 会同时屏蔽该容器内的所有第三方脚本。若站点把业务逻辑放进 GTM，可能出现按钮失效、表单不提交。
+    confidence: high
+    tags: [标签管理, 高风险误杀]
+    notes: 拦之前先确认目标站点有没有把非广告脚本放进 GTM。移动 App 一般不用 GTM，影响面小。
+
+  - domain: google-analytics.com
+    product: Google Analytics（UA / GA4）
+    category: analytics
+    purpose: GA 的数据采集端点，analytics.js、gtag/js 与 /g/collect 上报都指向这里。
+    verdict: block
+    scope: apex
+    impact: 站点统计数据缺失，对访客无感知。
+    confidence: high
+    tags: [网站统计]
+
+  - domain: app-measurement.com
+    product: Firebase Analytics（GA4 for Firebase）
+    category: analytics
+    purpose: 移动 App 的 Firebase 埋点上报端点，负责事件、用户属性、受众同步。
+    verdict: block-cost
+    scope: apex
+    impact: App 内埋点全丢。少数 App 依赖远端配置返回值，极端情况下首次启动会卡在初始化。
+    confidence: high
+    tags: [App统计, Firebase]
+
+  - domain: firebaseinstallations.googleapis.com
+    product: Firebase Installations
+    category: tracking
+    purpose: 生成并维护 Firebase Installation ID（FID），Analytics、Remote Config、Cloud Messaging 都依赖它做实例标识。
+    verdict: block-cost
+    scope: host
+    impact: 依赖 FID 的推送 token 注册可能失败，导致收不到推送；纯统计类 App 只是丢数据。
+    confidence: medium
+    tags: [设备标识, Firebase]
+
+  - domain: crashlytics.com
+    product: Firebase Crashlytics
+    category: crash
+    purpose: 崩溃与 ANR 上报，附带设备型号、系统版本、堆栈与最近操作路径。
+    verdict: block-cost
+    scope: apex
+    impact: 开发者收不到崩溃数据；终端用户无感知。
+    confidence: high
+    tags: [崩溃上报]
+
+  - domain: googleapis.com
+    product: Google APIs 公共入口
+    category: infra
+    purpose: 承载 Firebase、地图、登录、云服务的统一 API 网关，大量 App 的基础能力都在这个域下。
+    verdict: keep
+    scope: apex
+    impact: 整域封禁会导致 Google 登录、地图、Firebase 推送、Play 服务集体失效，App 可能直接白屏或闪退。
+    confidence: high
+    tags: [基础设施, 高危误杀]
+
+  - domain: gstatic.com
+    product: Google 静态资源 CDN
+    category: infra
+    purpose: 提供字体、JS 库、公共静态资源。许多网站与 App 从 gstatic.com 加载非广告资源。
+    verdict: keep
+    scope: apex
+    impact: 页面字体回退、部分站点 JS 加载失败、布局错乱。
+    confidence: high
+    tags: [CDN, 高危误杀]
+
+  - domain: google.com
+    product: Google 主域
+    category: infra
+    purpose: 搜索、账号、登录、验证码、地图等核心服务的宿主域。
+    verdict: keep
+    scope: apex
+    impact: 无法登录 Google 账号、无法通过 reCAPTCHA 验证，大量第三方 App 的 Google 登录一并失效。
+    confidence: high
+    tags: [基础设施, 高危误杀]
