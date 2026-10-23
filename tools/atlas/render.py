@@ -60,11 +60,21 @@ def stats_block(vendors: dict[str, Vendor], entries: list[Entry]) -> str:
     blockable = sum(1 for e in entries if e.is_blockable)
     keep = sum(1 for e in entries if e.verdict == "keep")
     low = sum(1 for e in entries if e.confidence == "low")
+    medium = sum(1 for e in entries if e.confidence == "medium")
+    high = sum(1 for e in entries if e.confidence == "high")
     deprecated = sum(1 for e in entries if e.status == "deprecated")
-    return (
-        f"> 共 **{total}** 个域名 · **{len(vendors)}** 家厂商 · "
-        f"可拦 **{blockable}** · 建议保留 **{keep}** · "
-        f"待验证 **{low}** · 已停用 **{deprecated}**"
+    return "\n".join(
+        [
+            f"> 共 **{total}** 条记录 · **{len(vendors)}** 家厂商",
+            f">",
+            f"> 拦截判定：可拦 **{blockable}** · 建议保留 **{keep}**"
+            f"（{blockable} + {keep} = {total}）",
+            f">",
+            f"> 置信度：已确认 **{high}** · 较可信 **{medium}** · 待验证 **{low}**"
+            f"；其中 **{deprecated}** 条为已停用服务",
+            f">",
+            "> 后两行是同一批记录的另一种切法，不是新的条目。",
+        ]
     )
 
 
@@ -427,6 +437,6 @@ def readme_stats(vendors: dict[str, Vendor], entries: list[Entry]) -> str:
     blockable = sum(1 for e in entries if e.is_blockable)
     keep = sum(1 for e in entries if e.verdict == "keep")
     return (
-        f"{total} 个域名 / {len(vendors)} 家厂商 · "
+        f"{total} 条记录 / {len(vendors)} 家厂商 · "
         f"可拦 {blockable} · 建议保留 {keep}"
     )
